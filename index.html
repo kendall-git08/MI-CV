@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <style>
+    /* Triángulo toggle profesional */
+    .sticky-toggle-btn {
+        position: absolute;
+        bottom: 6px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 2100;
+        padding: 0;
+        transition: transform 0.22s cubic-bezier(.2,.9,.2,1);
+    }
+    .sticky-toggle-btn:active {
+        transform: scale(0.96);
+    }
+    .sticky-toggle-icon {
+        display: block;
+        width: 32px;
+        height: 32px;
+        transition: transform 0.32s cubic-bezier(.2,.9,.2,1);
+    }
+    .sticky-toggle-btn.open .sticky-toggle-icon {
+        transform: rotate(180deg);
+    }
+        /* Animación de salida para la barra sticky */
+        .sticky-contact-bar {
+            transition: opacity 0.32s cubic-bezier(.2,.9,.2,1), transform 0.32s cubic-bezier(.2,.9,.2,1);
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .sticky-contact-bar.hide {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-32px) scale(0.98); /* animación hacia arriba */
+        }
+    /* Triángulo SVG pro */
+    .sticky-toggle-icon polygon {
+        fill: url(#toggleGradient);
+        stroke: #00c2ff;
+        stroke-width: 2px;
+        filter: drop-shadow(0 2px 8px rgba(0,194,255,0.18));
+    }
+    /* Slide contact info styles */
+    .contact-slide {
+        position: absolute;
+        left: 50%;
+        top: 110%;
+        transform: translateX(-50%) scale(0.98);
+        min-width: 220px;
+        background: linear-gradient(90deg, #2c2c3e 0%, #3e3e55 100%);
+        color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0,194,255,0.18);
+        padding: 18px 22px 14px 22px;
+        margin: 10px;
+        z-index: 3000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.32s cubic-bezier(.2,.9,.2,1), transform 0.32s cubic-bezier(.2,.9,.2,1);
+        font-size: 1.08rem;
+        font-weight: 500;
+        box-sizing: border-box;
+    }
+    .contact-slide.active {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(-50%) scale(1.04);
+    }
+    .contact-slide .slide-close {
+        position: absolute;
+        top: 8px;
+        right: 12px;
+        background: none;
+        border: none;
+        color: #00c2ff;
+        font-size: 1.2rem;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    .contact-slide .slide-label {
+        color: #00c2ff;
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+        display: block;
+    }
+    .contact-slide .slide-value {
+        font-size: 1.25rem;
+        font-weight: 800;
+        margin-bottom: 6px;
+        letter-spacing: 1px;
+        color: #fff;
+    }
+    .contact-slide .copy-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255,255,255,0.04);
+        border: none;
+        color: #00c2ff;
+        cursor: pointer;
+        padding: 6px;
+        border-radius: 6px;
+        transition: background 0.18s, box-shadow 0.18s;
+    }
+    .contact-slide .copy-btn:hover {
+        background: rgba(0,194,255,0.08);
+        transform: translateY(-2px);
+    }
+    </style>
+    <meta charset="UTF-8">
+    <title>Mi Portafolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="main-header">
+    <!-- Modal para mostrar contacto -->
+    <div id="contactModal" class="modal" style="display:none; z-index:4000;">
+        <div class="modal-backdrop" id="contactModalBackdrop" style="background:rgba(2,6,23,0.7);"></div>
+        <div class="modal-content" style="max-width:340px; margin:auto; padding:24px; border-radius:14px; background:var(--card-bg); box-shadow:0 18px 60px rgba(2,6,23,0.4); text-align:center; position:relative;">
+            <button id="contactModalClose" class="modal-close" aria-label="Cerrar" style="position:absolute; right:10px; top:10px; background:#111827; color:#fff; border:none; border-radius:6px; padding:6px 8px; cursor:pointer;">✕</button>
+            <div id="contactModalContent"></div>
+        </div>
+    </div>
+    <header id="mainHeader" class="main-header">
+            <h1 class="header-title">Kendall Jiménez Barboza</h1>
+            <p class="header-subtitle">Especialista en análisis de datos</p>
+            <div class="contact-icons contact-header contact-icons-group" role="group" aria-label="Contactos">
+                <a class="contact-icon contact-icon-call" id="contactPhone" href="#" aria-label="Llamar" title="Llamar">
+                    <img src="ICONOS REDES SOCIALES/llamar.jpg" alt="Teléfono">
+                </a>
+                <a class="contact-icon contact-icon-email" id="contactEmail" href="#" aria-label="Enviar email" title="Email">
+                    <img src="ICONOS REDES SOCIALES/EMAIL.png" alt="Email">
+                </a>
+                <a class="contact-icon contact-icon-github" id="contactGithub" href="https://github.com/kendall-git08" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+                    <img src="ICONOS DE HERRAMIENTAS/GIT.png" alt="GitHub">
+                </a>
+                <a class="contact-icon contact-icon-linkedin" id="contactLinkedin" href="https://www.linkedin.com/in/kendall-jim%C3%A9nez-barboza-1a668a212/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+                    <img src="ICONOS REDES SOCIALES/linkedyn.png" alt="LinkedIn">
+                </a>
+            </div>
+    </header>
+    <div id="stickyContact" class="sticky-contact-bar" aria-label="Contactos">
+        <div class="contact-icons contact-header contact-icons-group" style="position:relative;">
+            <a class="contact-icon contact-icon-call" id="stickyContactPhone" href="#" aria-label="Llamar" title="Llamar">
+                <img src="ICONOS REDES SOCIALES/llamar.jpg" alt="Teléfono">
+            </a>
+            <a class="contact-icon contact-icon-email" id="stickyContactEmail" href="#" aria-label="Enviar email" title="Email">
+                <img src="ICONOS REDES SOCIALES/EMAIL.png" alt="Email">
+            </a>
+            <a class="contact-icon contact-icon-github" id="stickyContactGithub" href="https://github.com/kendall-git08" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+                <img src="ICONOS DE HERRAMIENTAS/GIT.png" alt="GitHub">
+            </a>
+            <a class="contact-icon contact-icon-linkedin" id="stickyContactLinkedin" href="https://www.linkedin.com/in/kendall-jim%C3%A9nez-barboza-1a668a212/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+                <img src="ICONOS REDES SOCIALES/linkedyn.png" alt="LinkedIn">
+            </a>
+            <button id="toggleContactSticky" class="sticky-toggle-btn" aria-label="Ocultar/Mostrar contacto">
+                <svg id="toggleContactIcon" class="sticky-toggle-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="toggleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#00c2ff"/>
+                            <stop offset="100%" stop-color="#7cf2b5"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14l-6-6z" fill="url(#toggleGradient)"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+        <main class="cv-main">
+            <!-- Experience Section -->
+            <section class="experience-card card">
+                <div class="experience-header">
+                    <div class="experience-photo-wrapper">
+                        <img class="profile-img" src="IMAGES/Kendall.jpeg" alt="Foto de perfil de Kendall Jiménez">
+                    </div>
+                    <div class="experience-intro">
+                        <h2 class="section-title">EXPERIENCIA PROFESIONAL</h2>
+                        <p class="experience-tagline">Analista de datos para tranformar procesos y tomar decisiones</p>
+                    </div>
+                </div>
+                <div class="experience-timeline">
+                    <article class="job-entry">
+                        <div class="job-header">
+                            <h3 class="job-title">Business Intelligence Specialist</h3>
+                            <p class="job-company">Coprodesa S.A.</p>
+                            <p class="job-duration">SEP 2024 – Actualidad</p>
+                        </div>
+                        <ul class="job-duties">
+                            <li>Diseño y mantenimiento de modelos de datos (SAP Business One, SQL Server) e integración con CRM (Bitrix24).</li>
+                            <li>Construcción y gobernanza de dashboards en Power BI (DAX, Dataflows) para seguimiento de presupuestos, costos y gastos.</li>
+                            <li>Cálculo y automatización del pago de comisiones para el equipo de ventas.</li>
+                            <li>Automatización de flujos de trabajo (AppSheet) para aprobación de gastos y generación de reportes.</li>
+                            <li>Desarrollo y mantenimiento de pipelines ETL para KPIs críticos de negocio.</li>
+                            <li>Prototipado rápido con IA y micro-aplicaciones para validar soluciones internas.</li>
+                        </ul>
+                    </article>
+                    <article class="job-entry">
+                        <div class="job-header">
+                            <h3 class="job-title">Pasante / Técnico de Mejora Continua</h3>
+                            <p class="job-company">Eaton</p>
+                            <p class="job-duration">AGO 2023 – SEP 2024</p>
+                        </div>
+                        <ul class="job-duties">
+                            <li>Análisis de KPIs operativos y ejecución de proyectos de mejora continua (5S, VSM, Kaizen).</li>
+                            <li>Seguimiento de costos y desarrollo de propuestas de ahorro en proyectos de planta.</li>
+                            <li>Soporte en la actualización de procedimientos operativos (OSP) y colaboración en equipos multidisciplinarios.</li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
+
+        <!-- (Anterior bloque de recomendaciones eliminado para reubicar al final) -->
+        <section class="profile-card card">
+            <h2 class="section-title">PERFIL PROFESIONAL</h2>
+            <div class="profile-content">
+                <p>
+                    <strong>Especialista en Business Intelligence</strong>. Trabajo datos para tomar decisiones: <strong>análisis financiero</strong>, <strong>modelado</strong> y <strong>reportes automatizados</strong>. Experiencia real en <strong>SAP Business One</strong> (SQL Server), <strong>Power BI</strong> (DAX, Dataflows) y <strong>Excel avanzado</strong>.
+                    Construyo <strong>modelos de datos claros y escalables</strong>, <strong>dashboards financieros/comerciales</strong> y <strong>KPIs</strong> que se utilizan. Realizo <strong>ETL ligero</strong>.
+                    Utilizo <strong>AppSheet</strong> para <strong>digitalizar procesos</strong> y <strong>acelerar la operación</strong>. Formación oficial en <strong>Python</strong> aplicado a IA: <strong>regresión</strong>, <strong>árboles/Random Forest</strong> y <strong>evaluación de modelos</strong> (train/test, validación cruzada, métricas).
+                </p>
+            </div>
+        </section>
+
+        <!-- Skills section -->
+        <section class="skills-section card">
+            <h2 class="section-title">HABILIDADES TÉCNICAS</h2>
+            <div class="skills-grid">
+                <div class="skill-item-v2">
+                    <img src="ICONOS DE HERRAMIENTAS/SQL.png" alt="SQL" class="skill-icon">
+                    <div class="skill-text">
+                        <h4 class="skill-name">SQL</h4>
+                        <p class="skill-description">ETL, Modelado, Funciones de Ventana, CTEs y optimización de consultas.</p>
+                    </div>
+                </div>
+                <div class="skill-item-v2">
+                    <img src="ICONOS DE HERRAMIENTAS/POWER BI.png" alt="Power BI" class="skill-icon">
+                    <div class="skill-text">
+                        <h4 class="skill-name">Power BI</h4>
+                        <p class="skill-description">Dataflows (Gen1/Gen2), DAX, Modelado en Estrella, RLS y optimización de rendimiento.</p>
+                    </div>
+                </div>
+                <div class="skill-item-v2">
+                    <img src="ICONOS DE HERRAMIENTAS/EXCEL.jpg" alt="Excel" class="skill-icon">
+                    <div class="skill-text">
+                        <h4 class="skill-name">Excel Avanzado</h4>
+                        <p class="skill-description">Power Pivot, Power Query (Lenguaje M) y modelado de datos complejos.</p>
+                    </div>
+                </div>
+                <div class="skill-item-v2">
+                    <img src="ICONOS DE HERRAMIENTAS/APPSHEET.png" alt="AppSheet" class="skill-icon">
+                    <div class="skill-text">
+                        <h4 class="skill-name">AppSheet</h4>
+                        <p class="skill-description">Desarrollo de apps sin código, automatización de flujos y gestión de datos.</p>
+                    </div>
+                </div>
+                <div class="skill-item-v2">
+                    <img src="ICONOS DE HERRAMIENTAS/PYTHON.png" alt="Python" class="skill-icon">
+                    <div class="skill-text">
+                        <h4 class="skill-name">Python</h4>
+                        <p class="skill-description">Análisis de datos con Pandas, NumPy y Scikit-learn para modelos de ML.</p>
+                    </div>
+                </div>
+                <div class="skill-item-v2">
+                    <img src="ICONOS DE HERRAMIENTAS/GIT.png" alt="GitHub" class="skill-icon">
+                    <div class="skill-text">
+                        <h4 class="skill-name">GitHub & Copilot</h4>
+                        <p class="skill-description">Control de versiones y desarrollo asistido por IA para acelerar la codificación.</p>
+                    </div>
+                </div>
+            </div>
+            <h3 class="section-title" style="color:#00c2ff; margin-top: 32px;">IDIOMA</h3>
+            <ul class="lang-list list-unstyled">
+                <li class="list-item-margin">Inglés (A2)</li>
+            </ul>
+        </section>
+
+        <!-- Education & Certifications Button -->
+        <button id="modernProjectsBtn" class="modern-projects-btn">
+            PROYECTOS
+        </button>
+        <button id="modernEducationBtn" class="modern-education-btn">
+            CERTIFICACIONES
+        </button>
+        <!-- Modern Zigzag Recommendations -->
+        <section class="recommendations-zigzag card">
+            <h2 class="section-title">RECOMENDACIONES</h2>
+            <div class="recommendations-container">
+                <div class="rec-item-zigzag left">
+                    <div class="rec-content">
+                        <div class="rec-name">Moisés Monjarrez</div>
+                        <div class="rec-role">Analista Senior</div>
+                        <div class="rec-company-links">
+                            <a href="https://belpremium.com/" target="_blank" rel="noopener" aria-label="Bell Premium">
+                                Bell Premium
+                            </a>
+                            <span>·</span>
+                            <a href="https://coprodesa.com/" target="_blank" rel="noopener" aria-label="Coprodesa">
+                                Coprodesa (Ex)
+                            </a>
+                            <span>·</span>
+                            <a href="https://www.growupcr.com/" target="_blank" rel="noopener" aria-label="Data Grow Up">
+                                Data Grow Up (Instructor)
+                            </a>
+                        </div>
+                    </div>
+                    <div class="rec-actions">
+                        <button class="recommendation-contact-phone" data-phone="+506 8828-4010" data-tel="tel:+50688284010" aria-label="Llamar Moisés">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12 1.05.37 2.07.74 3.03a2 2 0 0 1-.45 2.11L9.91 10.09a16 16 0 0 0 6 6l1.23-1.23a2 2 0 0 1 2.11-.45c.96.37 1.98.62 3.03.74A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                        <button class="recommendation-contact-email" data-email="mmonjarrez@gmail.com" aria-label="Email Moisés">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 6l-10 7L2 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="rec-item-zigzag right">
+                    <div class="rec-content">
+                        <div class="rec-name">Sharlyn Calvo</div>
+                        <div class="rec-role">Jefatura Contable</div>
+                        <div class="rec-company-links">
+                            <a href="https://coprodesa.com/" target="_blank" rel="noopener" aria-label="Coprodesa">
+                                Coprodesa
+                            </a>
+                        </div>
+                    </div>
+                    <div class="rec-actions">
+                        <button class="recommendation-contact-phone" data-phone="+506 6175-7828" data-tel="tel:+50661757828" aria-label="Llamar Sharlyn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12 1.05.37 2.07.74 3.03a2 2 0 0 1-.45 2.11L9.91 10.09a16 16 0 0 0 6 6l1.23-1.23a2 2 0 0 1 2.11-.45c.96.37 1.98.62 3.03.74A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                        <button class="recommendation-contact-email" data-email="scalvo@coprodesa.com" aria-label="Email Sharlyn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 6l-10 7L2 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="rec-item-zigzag left">
+                    <div class="rec-content">
+                        <div class="rec-name">Andrea Calderon</div>
+                        <div class="rec-role">Jefatura de Recursos Humanos</div>
+                        <div class="rec-company-links">
+                            <a href="https://coprodesa.com/" target="_blank" rel="noopener" aria-label="Coprodesa">
+                                Coprodesa
+                            </a>
+                        </div>
+                    </div>
+                    <div class="rec-actions">
+                        <button class="recommendation-contact-phone" data-phone="7950891" data-tel="tel:7950891" aria-label="Llamar Andrea">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12 1.05.37 2.07.74 3.03a2 2 0 0 1-.45 2.11L9.91 10.09a16 16 0 0 0 6 6l1.23-1.23a2 2 0 0 1 2.11-.45c.96.37 1.98.62 3.03.74A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                        <button class="recommendation-contact-email" data-email="Acalderon@coprodesa.com" aria-label="Email Andrea">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 6l-10 7L2 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </main>
+
+
+    <!-- Certificate modal -->
+    <div id="certModal" class="modal" aria-hidden="true">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-content" role="dialog" aria-modal="true">
+            <button id="modalClose" class="modal-close" aria-label="Cerrar">✕</button>
+            <iframe id="certFrame" src="" frameborder="0"></iframe>
+        </div>
+    </div>
+
+        <!-- Projects Overlay -->
+        <div id="projectsOverlay" class="projects-overlay" aria-hidden="true" style="z-index:3000;">
+            <div class="projects-overlay-content">
+                <div class="panel-header">
+                    <h3>Proyectos</h3>
+                    <button id="closeProjects" class="projects-overlay-close" aria-label="Cerrar">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="panel-body">
+                    <div class="project-grid">
+                        <div class="project-card" data-project-id="p1">
+                            <img src="IMAGES/VENTAS POR UND.png" alt="Proyecto 1">
+                            <h4>Seguimiento de Presupuestos</h4>
+                            <p class="meta">Dashboard financiero • Power BI</p>
+                            <div class="project-detail" aria-hidden="true">
+                                <p>Mantenimiento y desarrollo continuo, incluyendo limpieza de datos, modelado y visualización. Tecnologías: SQL, Power BI, Dataflows y archivos planos.</p>
+                            </div>
+                        </div>
+                        <div class="project-card" data-project-id="p2">
+                            <img src="IMAGES/LIQ VIATICOS.png" alt="Proyecto 2">
+                            <h4>Liquidación de Viáticos</h4>
+                            <p class="meta">App móvil • AppSheet</p>
+                            <div class="project-detail" aria-hidden="true">
+                                <p>Digitalización completa del proceso de liquidación de viáticos, desde la recolección de datos hasta la generación de reportes.</p>
+                            </div>
+                        </div>
+                        <div class="project-card" data-project-id="p3">
+                            <img src="IMAGES/AZURE Y POWER BI.png" alt="Proyecto 3">
+                            <h4>Administración de Power BI Service</h4>
+                            <p class="meta">Gestión de Workspaces y Pipelines</p>
+                            <div class="project-detail" aria-hidden="true">
+                                <p>Creación de dataflows, mantenimiento de pipelines, distribución de informes y optimización de consultas en Power Query.</p>
+                            </div>
+                        </div>
+                        <div class="project-card" data-project-id="p4">
+                            <img src="IMAGES/CONSULTAS SQL.png" alt="Proyecto 4">
+                            <h4>Power Query + SQL On-Premise</h4>
+                            <p class="meta">Integración de datos • SQL Gateway</p>
+                            <div class="project-detail" aria-hidden="true">
+                                <p>Creación de consultas SQL directamente sobre bases de datos on-premise utilizando el gateway de Power BI.</p>
+                            </div>
+                        </div>
+                        <div class="project-card" data-project-id="p5">
+                            <img src="IMAGES/APPS EXTERNAS.png" alt="Proyecto 5">
+                            <h4>Desarrollo de Micro-Apps</h4>
+                            <p class="meta">Soluciones a medida con AppSheet</p>
+                            <div class="project-detail" aria-hidden="true">
+                                <p>Responsable del ciclo completo de desarrollo: diseño, implementación, gestión de datos y creación de datamarts para clientes VIP.</p>
+                            </div>
+                        </div>
+                        <div class="project-card" data-project-id="p6">
+                            <img src="IMAGES/MODELO DE DATOS.png" alt="Proyecto 6">
+                            <h4>Modelado de Datos en Power BI</h4>
+                            <p class="meta">Modelo de costos y gastos</p>
+                            <div class="project-detail" aria-hidden="true">
+                                <p>Gestión de tickets, análisis de requisitos, creación de consultas e integración con otros reportes del negocio.</p>
+                            </div>
+                        </div>
+                        <div class="project-card" data-project-id="p7">
+                            <img src="IMAGES/MODELO RELACIONAL INVENTARIO.png" alt="Inventario Anual">
+                            <h4>App para Inventario Anual</h4>
+                            <p class="meta">AppSheet • Liderazgo de Proceso</p>
+                            <div class="project-detail" aria-hidden="true">
+                                <p>Lideré el proceso de inventario anual, incluyendo el desarrollo de una app en AppSheet para los conteos, la capacitación del personal y la dirección general del proceso.</p>
+                            </div>
+                        </div>
+                        <div class="project-card" data-project-id="p8">
+                            <img src="IMAGES/ADM FORECAST.png" alt="Pago de Comisiones">
+                            <h4>Automatización de Pago de Comisiones</h4>
+                            <p class="meta">SQL • Excel • Power BI</p>
+                            <div class="project-detail" aria-hidden="true">
+                                <p>Desarrollo de un sistema automatizado para el cálculo y pago de comisiones al equipo de ventas, reduciendo errores y tiempos de procesamiento.</p>
+                            </div>
+                        </div>
+                        <div class="project-card" data-project-id="p9">
+                            <img src="IMAGES/KPI.png" alt="Gestión de KPI">
+                            <h4>Gestión y Seguimiento de KPIs</h4>
+                            <p class="meta">Power BI • DAX</p>
+                            <div class="project-detail" aria-hidden="true">
+                                <p>Creación y mantenimiento de dashboards para el seguimiento de KPIs críticos del negocio, proporcionando visibilidad en tiempo real del rendimiento.</p>
+                            </div>
+                        </div>
+                        <div class="project-card" data-project-id="p10">
+                            <img src="IMAGES/MEDIDORES.png" alt="Activación de Medidores">
+                            <h4>Activación de Medidores</h4>
+                            <p class="meta">Proceso • AppSheet</p>
+                            <div class="project-detail" aria-hidden="true">
+                                <p>Diseño y automatización del flujo para la activación de medidores, mejorando la eficiencia y el control del proceso.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Education Overlay -->
+    <div id="educationOverlay" class="projects-overlay" aria-hidden="true" style="z-index:3000;">
+        <div class="projects-overlay-content">
+            <div class="panel-header">
+                <h3>Certificaciones</h3>
+                <button id="closeEducation" class="projects-overlay-close" aria-label="Cerrar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="panel-body">
+                <div class="project-grid">
+                    <div class="project-card">
+                        <img src="ICONOS CERTIFICADOS/MATRICULA.png" alt="UCR">
+                        <h4>Lic. Ingeniería Industrial (+80%)</h4>
+                        <p class="meta">Universidad de Costa Rica</p>
+                        <div class="project-detail" aria-hidden="true">
+                            <p>Formación en ingeniería de procesos, optimización y gestión de operaciones.</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="ICONOS CERTIFICADOS/BA.png" alt="FundaTEC">
+                        <h4>Business Analytics: ML & IA</h4>
+                        <p class="meta">FundaTEC Talento Digital</p>
+                        <div class="project-detail" aria-hidden="true">
+                            <p>Programa intensivo en análisis de datos, machine learning e inteligencia artificial aplicada a negocios.</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="ICONOS CERTIFICADOS/SQL.png" alt="Data Grow Up">
+                        <h4>SQL para Principiantes</h4>
+                        <p class="meta">Data Grow Up</p>
+                        <div class="project-detail" aria-hidden="true">
+                            <p>Curso de fundamentos de SQL, consultas, joins y funciones agregadas.</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="ICONOS CERTIFICADOS/power bi.png" alt="Data Grow Up">
+                        <h4>Especialidad en Inteligencia de Negocios con Power BI</h4>
+                        <p class="meta">Data Grow Up</p>
+                        <div class="project-detail" aria-hidden="true">
+                            <p>Formación completa en Power BI, desde la conexión de datos hasta la creación de dashboards interactivos.</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="ICONOS CERTIFICADOS/CLOUD.png" alt="Google Cloud">
+                        <h4>Google Cloud Data Analytics</h4>
+                        <p class="meta">Google Cloud Skills Boost</p>
+                        <div class="project-detail" aria-hidden="true">
+                            <p>Certificación en herramientas de análisis de datos en el ecosistema de Google Cloud.</p>
+                        </div>
+                    </div>
+                        <div class="project-card">
+                            <img src="ICONOS CERTIFICADOS/APPSHEET.png" alt="Google Cloud">
+                            <h4>No-Code Apps with AppSheet</h4>
+                            <p class="meta">Google Cloud Skills Boost</p>
+                            <div class="project-detail" aria-hidden="true">
+                                <p>Creación de aplicaciones sin código para automatización de procesos y captura de datos.</p>
+                            </div>
+                        </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    <!-- backdrop for overlay effect when the panel is open -->
+    <div id="panelBackdrop" class="panel-backdrop" aria-hidden="true"></div>
+
+    <script src="js/slidepanel.js"></script>
+    <script src="js/carousel.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+    // Toggle y animación de barra sticky: aparece/desaparece según scroll y SVG, animación de salida hacia arriba
+    document.addEventListener('DOMContentLoaded', function() {
+        const stickyContact = document.getElementById('stickyContact');
+        const toggleBtn = document.getElementById('toggleContactSticky');
+        let userHidSticky = false;
+        let lastScrollY = window.scrollY || window.pageYOffset;
+
+        function showStickyContact() {
+            stickyContact.classList.remove('hide');
+            toggleBtn.classList.remove('open');
+        }
+        function hideStickyContact() {
+            stickyContact.classList.add('hide');
+            toggleBtn.classList.add('open');
+        }
+
+        function updateStickyOnScroll() {
+            const scrollY = window.scrollY || window.pageYOffset;
+            if(scrollY > 120) {
+                // Mostrar barra si no está oculta manualmente
+                if(!userHidSticky) {
+                    showStickyContact();
+                }
+            } else {
+                // Ocultar barra al volver arriba
+                hideStickyContact();
+                userHidSticky = false; // reset manual hide al volver arriba
+            }
+            lastScrollY = scrollY;
+        }
+
+        if(stickyContact && toggleBtn) {
+            toggleBtn.addEventListener('click', function() {
+                const isHidden = stickyContact.classList.contains('hide');
+                if(isHidden) {
+                    showStickyContact();
+                    userHidSticky = false;
+                } else {
+                    hideStickyContact();
+                    userHidSticky = true;
+                }
+            });
+            window.addEventListener('scroll', updateStickyOnScroll);
+            // Inicializa estado correcto al cargar
+            updateStickyOnScroll();
+        }
+    });
+    </script>
+    <script>
+    // Interactividad de los botones de contacto con slide animado
+    document.addEventListener('DOMContentLoaded', function() {
+        // Helper para crear el slide detrás del ícono
+        function createContactSlide(type, value, label) {
+            const slide = document.createElement('div');
+            slide.className = 'contact-slide';
+            slide.innerHTML = `
+                <button class="slide-close" aria-label="Cerrar">✕</button>
+                <span class="slide-label">${label}</span>
+                <div class="slide-value">${value}</div>
+                <div class="copy-container" style="display:flex; justify-content:center; margin-top:8px;">
+                    <button class="copy-btn" id="copyContactBtn" title="Copiar" style="background:none; border:none; color:#00c2ff; cursor:pointer; padding:6px; border-radius:6px; transition:background 0.18s; display:flex; align-items:center; justify-content:center;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="copy-notify" id="copyNotify" style="display:none; margin-top:6px; color:#7cf2b5; font-size:0.98rem; font-weight:600; text-align:center;">Copiado ✔</div>
+                <div style="font-size:0.95rem; color:#cfc6dd; margin-top:4px; text-align:center;">${type === 'phone' ? 'Puedes copiar el número para llamar o enviar WhatsApp.' : 'Puedes copiar el correo para escribir directamente.'}</div>
+            `;
+            return slide;
+        }
+
+        function showContactSlide(e, type) {
+            e.preventDefault();
+            // Cerrar cualquier slide abierto
+            document.querySelectorAll('.contact-slide.active').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.contact-slide').forEach(s => s.remove());
+
+            const icon = e.currentTarget;
+            let value = '';
+            let label = '';
+
+            if (type === 'phone') {
+                value = icon.dataset.phone || '+506 6119 1584';
+                label = 'Teléfono de contacto';
+            } else {
+                value = icon.dataset.email || 'kendalljimenez8@gmail.com';
+                label = 'Correo electrónico';
+            }
+            
+            // Crear slide
+            const slide = createContactSlide(type, value, label);
+            
+            // Insertar detrás del ícono
+            icon.parentElement.style.position = 'relative';
+            icon.parentElement.appendChild(slide);
+            setTimeout(() => {
+                slide.classList.add('active');
+            }, 10);
+
+            // Cerrar slide
+            slide.querySelector('.slide-close').addEventListener('click', () => {
+                slide.classList.remove('active');
+                setTimeout(() => slide.remove(), 320);
+            });
+            // Cerrar al hacer clic fuera
+            setTimeout(() => {
+                document.addEventListener('mousedown', function handler(ev) {
+                    if (!slide.contains(ev.target) && ev.target !== icon) {
+                        slide.classList.remove('active');
+                        setTimeout(() => slide.remove(), 320);
+                        document.removeEventListener('mousedown', handler);
+                    }
+                });
+            }, 50);
+            // Copiar al portapapeles y guardar en localStorage
+            const copyBtn = slide.querySelector('#copyContactBtn');
+            const copyValue = slide.querySelector('.slide-value');
+            const notify = slide.querySelector('#copyNotify');
+            if(copyBtn && copyValue && notify) {
+                copyBtn.addEventListener('click', function() {
+                    const val = copyValue.textContent.trim();
+                    // Copiar al portapapeles
+                    if(window.navigator && window.navigator.clipboard) {
+                        window.navigator.clipboard.writeText(val).then(function(){
+                            notify.style.display = 'block';
+                            setTimeout(()=>{ notify.style.display = 'none'; }, 1400);
+                        });
+                    } else {
+                        // Fallback para navegadores antiguos
+                        const tempInput = document.createElement('input');
+                        tempInput.value = val;
+                        document.body.appendChild(tempInput);
+                        tempInput.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(tempInput);
+                        notify.style.display = 'block';
+                        setTimeout(()=>{ notify.style.display = 'none'; }, 1400);
+                    }
+                    // Guardar el valor copiado en localStorage
+                    if(type === 'phone') {
+                        localStorage.setItem('lastCopiedPhone', val);
+                    } else if(type === 'email') {
+                        localStorage.setItem('lastCopiedEmail', val);
+                    }
+                });
+            }
+        }
+
+        // Teléfono: slide animado
+        document.getElementById('contactPhone')?.addEventListener('click', function(e) {
+            showContactSlide(e, 'phone');
+        });
+        document.getElementById('stickyContactPhone')?.addEventListener('click', function(e) {
+            showContactSlide(e, 'phone');
+        });
+        // Email: slide animado
+        document.getElementById('contactEmail')?.addEventListener('click', function(e) {
+            showContactSlide(e, 'email');
+        });
+        document.getElementById('stickyContactEmail')?.addEventListener('click', function(e) {
+            showContactSlide(e, 'email');
+        });
+        // Recomendaciones: manejadores definidos en js/main.js
+
+        // GitHub: abre en nueva pestaña
+        document.getElementById('contactGithub')?.addEventListener('click', function(e) {
+            window.open(this.href, '_blank');
+        });
+        document.getElementById('stickyContactGithub')?.addEventListener('click', function(e) {
+            window.open(this.href, '_blank');
+        });
+        // LinkedIn: abre en nueva pestaña
+        document.getElementById('contactLinkedin')?.addEventListener('click', function(e) {
+            window.open(this.href, '_blank');
+        });
+        document.getElementById('stickyContactLinkedin')?.addEventListener('click', function(e) {
+            window.open(this.href, '_blank');
+        });
+    });
+    </script>
+</body>
+</html>
