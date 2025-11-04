@@ -1,135 +1,193 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portafolio de Kendall Jiménez Barboza - Especialista en análisis de datos">
+    <meta name="theme-color" content="#0a0e27">
+    <title>Kendall Jiménez Barboza | Analista de Datos</title>
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
+    
     <style>
-    /* Triángulo toggle profesional */
-    .sticky-toggle-btn {
-        position: absolute;
-        bottom: 6px;
-        right: 10px;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        z-index: 2100;
-        padding: 0;
-        transition: transform 0.22s cubic-bezier(.2,.9,.2,1);
-    }
-    .sticky-toggle-btn:active {
-        transform: scale(0.96);
-    }
-    .sticky-toggle-icon {
-        display: block;
-        width: 32px;
-        height: 32px;
-        transition: transform 0.32s cubic-bezier(.2,.9,.2,1);
-    }
-    .sticky-toggle-btn.open .sticky-toggle-icon {
-        transform: rotate(180deg);
-    }
-        /* Animación de salida para la barra sticky */
-        .sticky-contact-bar {
-            transition: opacity 0.32s cubic-bezier(.2,.9,.2,1), transform 0.32s cubic-bezier(.2,.9,.2,1);
-            opacity: 1;
-            transform: translateY(0);
+        /* Modern inline styles for interactive components */
+        .sticky-toggle-btn {
+            position: absolute;
+            bottom: 8px;
+            right: 12px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 212, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            cursor: pointer;
+            z-index: 2100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .sticky-contact-bar.hide {
+        
+        .sticky-toggle-btn:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+        
+        .sticky-toggle-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .sticky-toggle-icon {
+            display: block;
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .sticky-toggle-btn.open .sticky-toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        .sticky-toggle-icon polygon {
+            fill: #00d4ff;
+            filter: drop-shadow(0 2px 6px rgba(0, 212, 255, 0.4));
+        }
+        
+        /* Contact slide modern styles */
+        .contact-slide {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            min-width: 280px;
+            max-width: 400px;
+            background: rgba(30, 35, 60, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 212, 255, 0.1);
+            padding: 28px 32px;
+            z-index: 4000;
             opacity: 0;
             pointer-events: none;
-            transform: translateY(-32px) scale(0.98); /* animación hacia arriba */
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-    /* Triángulo SVG pro */
-    .sticky-toggle-icon polygon {
-        fill: url(#toggleGradient);
-        stroke: #00c2ff;
-        stroke-width: 2px;
-        filter: drop-shadow(0 2px 8px rgba(0,194,255,0.18));
-    }
-    /* Slide contact info styles */
-    .contact-slide {
-        position: absolute;
-        left: 50%;
-        top: 110%;
-        transform: translateX(-50%) scale(0.98);
-        min-width: 220px;
-        background: linear-gradient(90deg, #2c2c3e 0%, #3e3e55 100%);
-        color: #fff;
-        border-radius: 12px;
-        box-shadow: 0 8px 32px rgba(0,194,255,0.18);
-        padding: 18px 22px 14px 22px;
-        margin: 10px;
-        z-index: 3000;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.32s cubic-bezier(.2,.9,.2,1), transform 0.32s cubic-bezier(.2,.9,.2,1);
-        font-size: 1.08rem;
-        font-weight: 500;
-        box-sizing: border-box;
-    }
-    .contact-slide.active {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateX(-50%) scale(1.04);
-    }
-    .contact-slide .slide-close {
-        position: absolute;
-        top: 8px;
-        right: 12px;
-        background: none;
-        border: none;
-        color: #00c2ff;
-        font-size: 1.2rem;
-        cursor: pointer;
-        font-weight: bold;
-    }
-    .contact-slide .slide-label {
-        color: #00c2ff;
-        font-size: 1rem;
-        font-weight: 700;
-        margin-bottom: 6px;
-        display: block;
-    }
-    .contact-slide .slide-value {
-        font-size: 1.25rem;
-        font-weight: 800;
-        margin-bottom: 6px;
-        letter-spacing: 1px;
-        color: #fff;
-    }
-    .contact-slide .copy-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255,255,255,0.04);
-        border: none;
-        color: #00c2ff;
-        cursor: pointer;
-        padding: 6px;
-        border-radius: 6px;
-        transition: background 0.18s, box-shadow 0.18s;
-    }
-    .contact-slide .copy-btn:hover {
-        background: rgba(0,194,255,0.08);
-        transform: translateY(-2px);
-    }
+        
+        .contact-slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .contact-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00d4ff, #6366f1);
+        }
+        
+        .contact-slide .slide-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #00d4ff;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .contact-slide .slide-close:hover {
+            background: rgba(255, 0, 0, 0.2);
+            border-color: rgba(255, 0, 0, 0.5);
+            transform: rotate(90deg);
+        }
+        
+        .contact-slide .slide-label {
+            color: #00d4ff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            display: block;
+        }
+        
+        .contact-slide .slide-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            color: #fff;
+        }
+        
+        .contact-slide .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #00d4ff, #6366f1);
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+        }
+        
+        .contact-slide .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
+        }
+        
+        .contact-slide .copy-notify {
+            margin-top: 12px;
+            color: #10b981;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-align: center;
+        }
     </style>
-    <meta charset="UTF-8">
-    <title>Mi Portafolio</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="main-header">
-    <!-- Modal para mostrar contacto -->
+<body>
+    <!-- Modal backdrop for contact slides -->
+    <div id="contactModalBackdrop" style="display:none; position:fixed; inset:0; background:rgba(10,14,39,0.7); backdrop-filter:blur(8px); z-index:3999;"></div>
+    
+    <!-- Modern Contact Modal -->
     <div id="contactModal" class="modal" style="display:none; z-index:4000;">
-        <div class="modal-backdrop" id="contactModalBackdrop" style="background:rgba(2,6,23,0.7);"></div>
-        <div class="modal-content" style="max-width:340px; margin:auto; padding:24px; border-radius:14px; background:var(--card-bg); box-shadow:0 18px 60px rgba(2,6,23,0.4); text-align:center; position:relative;">
-            <button id="contactModalClose" class="modal-close" aria-label="Cerrar" style="position:absolute; right:10px; top:10px; background:#111827; color:#fff; border:none; border-radius:6px; padding:6px 8px; cursor:pointer;">✕</button>
+        <div class="modal-backdrop" id="contactModalBackdrop"></div>
+        <div class="modal-content" style="max-width:420px; margin:auto; padding:32px; border-radius:24px; background:var(--glass-bg); backdrop-filter:blur(20px); box-shadow:0 20px 60px rgba(0,0,0,0.4); text-align:center; position:relative; border:1px solid var(--glass-border);">
+            <button id="contactModalClose" class="modal-close" aria-label="Cerrar"></button>
             <div id="contactModalContent"></div>
         </div>
     </div>
+    
     <header id="mainHeader" class="main-header">
-            <h1 class="header-title">Kendall Jiménez Barboza</h1>
-            <p class="header-subtitle">Especialista en análisis de datos</p>
-            <div class="contact-icons contact-header contact-icons-group" role="group" aria-label="Contactos">
+        <h1 class="header-title">Kendall Jiménez Barboza</h1>
+        <p class="header-subtitle">Especialista en análisis de datos</p>
+        <div class="contact-icons contact-header contact-icons-group" role="group" aria-label="Contactos">
                 <a class="contact-icon contact-icon-call" id="contactPhone" href="#" aria-label="Llamar" title="Llamar">
                     <img src="ICONOS REDES SOCIALES/llamar.jpg" alt="Teléfono">
                 </a>
@@ -144,8 +202,10 @@
                 </a>
             </div>
     </header>
+    
+    <!-- Modern Sticky Contact Bar -->
     <div id="stickyContact" class="sticky-contact-bar" aria-label="Contactos">
-        <div class="contact-icons contact-header contact-icons-group" style="position:relative;">
+        <div class="contact-icons contact-header contact-icons-group" style="position:relative; justify-content:center;">
             <a class="contact-icon contact-icon-call" id="stickyContactPhone" href="#" aria-label="Llamar" title="Llamar">
                 <img src="ICONOS REDES SOCIALES/llamar.jpg" alt="Teléfono">
             </a>
@@ -158,15 +218,15 @@
             <a class="contact-icon contact-icon-linkedin" id="stickyContactLinkedin" href="https://www.linkedin.com/in/kendall-jim%C3%A9nez-barboza-1a668a212/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
                 <img src="ICONOS REDES SOCIALES/linkedyn.png" alt="LinkedIn">
             </a>
-            <button id="toggleContactSticky" class="sticky-toggle-btn" aria-label="Ocultar/Mostrar contacto">
-                <svg id="toggleContactIcon" class="sticky-toggle-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <button id="toggleContactSticky" class="sticky-toggle-btn" aria-label="Ocultar/Mostrar contacto">
+                <svg class="sticky-toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <linearGradient id="toggleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#00c2ff"/>
-                            <stop offset="100%" stop-color="#7cf2b5"/>
+                            <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#6366f1;stop-opacity:1" />
                         </linearGradient>
                     </defs>
-                    <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14l-6-6z" fill="url(#toggleGradient)"/>
+                    <polygon points="0,8 22,8 22,0" fill="url(#toggleGradient)"/>
                 </svg>
             </button>
         </div>
@@ -240,12 +300,22 @@
             </div>
         </section>
 
-        <!-- Education & Certifications Button -->
-        <button id="modernProjectsBtn" class="modern-projects-btn">
-            PROYECTOS
+        <!-- Modern Action Buttons -->
+        <button id="modernProjectsBtn" class="modern-projects-btn" aria-label="Ver Proyectos">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="9" y1="9" x2="15" y2="9"></line>
+                <line x1="9" y1="15" x2="15" y2="15"></line>
+            </svg>
+            <span>PROYECTOS</span>
         </button>
-        <button id="modernEducationBtn" class="modern-education-btn">
-            CERTIFICACIONES
+        
+        <button id="modernEducationBtn" class="modern-education-btn" aria-label="Ver Certificaciones">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+            </svg>
+            <span>CERTIFICACIONES</span>
         </button>
         <!-- Compact Recommendations -->
         <section class="recommendations-compact card">
