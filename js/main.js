@@ -1,239 +1,247 @@
-// Sticky contact header with manual toggle and reset on scroll up
-document.addEventListener('DOMContentLoaded', function(){
-    const mainHeader = document.getElementById('mainHeader');
-    const stickyContact = document.getElementById('stickyContact');
-    const projectsPanel = document.getElementById('projectsPanel');
-    const toggleBtn = document.getElementById('toggleContactSticky');
-    const togglePolygon = document.getElementById('toggleContactPolygon');
-    let stickyHidden = false;
-
-    function updateSticky(){
-        const scrollY = window.scrollY || window.pageYOffset;
-        const panelOpen = projectsPanel && projectsPanel.classList.contains('open');
-
-        if(panelOpen){
-            mainHeader.style.opacity = '0';
-            mainHeader.style.pointerEvents = 'none';
-            stickyContact.style.display = 'none';
-            return;
-        }
-
-        if(scrollY > 120){
-            mainHeader.style.opacity = '0';
-            mainHeader.style.pointerEvents = 'none';
-            stickyContact.style.display = stickyHidden ? 'none' : 'block';
-            stickyContact.style.position = 'fixed';
-            stickyContact.style.top = '0';
-            stickyContact.style.left = '0';
-            stickyContact.style.width = '100%';
-            stickyContact.style.background = 'rgba(30,30,47,0.98)';
-            stickyContact.style.boxShadow = '0 4px 24px rgba(0,194,255,0.10)';
-            stickyContact.style.zIndex = '2000';
-            stickyContact.style.transition = 'all 0.3s';
-            stickyContact.style.padding = '10px 0';
-            if(toggleBtn){
-                toggleBtn.style.display = 'block';
-            }
-        } else {
-            mainHeader.style.opacity = '1';
-            mainHeader.style.pointerEvents = 'auto';
-            stickyContact.style.display = 'none';
-            // Reset state on scroll to top
-            stickyHidden = false;
-            if(togglePolygon){
-                togglePolygon.setAttribute('points','0,22 22,22 22,0');
-            }
-        }
-    }
-
-    window.addEventListener('scroll', updateSticky);
-
-    // Also listen for panel open/close
-    const observer = new MutationObserver(updateSticky);
-    if(projectsPanel){
-        observer.observe(projectsPanel, {attributes:true,attributeFilter:['class']});
-    }
-
-    if(toggleBtn){
-        toggleBtn.addEventListener('click', function(){
-            stickyHidden = !stickyHidden;
-            // Change triangle direction
-            if(stickyHidden){
-                // Triangle up (to show)
-                togglePolygon.setAttribute('points','0,0 22,0 22,22');
-            } else {
-                // Triangle down (to hide)
-                togglePolygon.setAttribute('points','0,22 22,22 22,0');
-            }
-            updateSticky();
-        });
-    }
-    updateSticky();
+document.addEventListener('DOMContentLoaded', () => {
+    initStickyContactBar();
+    initContactSlides();
 });
 
+function initStickyContactBar() {
+    const mainHeader = document.getElementById('mainHeader');
+    const stickyContact = document.getElementById('stickyContact');
+    const toggleBtn = document.getElementById('toggleContactSticky');
+    if (!stickyContact || !toggleBtn) {
+        return;
+    }
 
-// --- Recomendaciones: wire contact buttons to animated slide (uses same UI as header contacts)
-document.addEventListener('DOMContentLoaded', function() {
-    // Recreate minimal contact slide helpers (kept local to avoid global collisions)
-    function createContactSlide(type, value, label) {
+    let userCollapsed = false;
+
+    const showBar = () => {
+        stickyContact.classList.add('visible');
+        toggleBtn.classList.remove('open');
+    };
+
+    const hideBar = () => {
+        stickyContact.classList.remove('visible');
+        toggleBtn.classList.add('open');
+    };
+
+    const updateOnScroll = () => {
+        const scrolled = (window.scrollY || window.pageYOffset) > 120;
+        if (mainHeader) {
+            mainHeader.classList.toggle('header-condensed', scrolled);
+        }
+
+        if (scrolled) {
+            if (userCollapsed) {
+                hideBar();
+            } else {
+                showBar();
+            }
+        } else {
+            hideBar();
+            userCollapsed = false;
+            toggleBtn.classList.remove('open');
+        }
+    };
+
+    toggleBtn.addEventListener('click', () => {
+        userCollapsed = !userCollapsed;
+        if (userCollapsed) {
+            hideBar();
+        } else {
+            showBar();
+        }
+    });
+
+    window.addEventListener('scroll', updateOnScroll, { passive: true });
+    updateOnScroll();
+}
+
+function initContactSlides() {
+    const slideState = {
+        activeSlide: null
+    };
+
+    function removeActiveSlide() {
+        if (!slideState.activeSlide) return;
+        const current = slideState.activeSlide;
+        current.classList.remove('active');
+        setTimeout(() => current.remove(), 240);
+        slideState.activeSlide = null;
+        document.removeEventListener('mousedown', handleOutsideClick, true);
+    }
+
+    function handleOutsideClick(event) {
+        if (slideState.activeSlide && !slideState.activeSlide.contains(event.target)) {
+            removeActiveSlide();
+        }
+    }
+
+    function createContactSlide(type, value) {
         const slide = document.createElement('div');
+        const label = type === 'phone' ? 'Teléfono de contacto' : 'Correo electrónico';
+        const hint = type === 'phone'
+            ? 'Puedes copiar el número para llamar o enviar WhatsApp.'
+            : 'Puedes copiar el correo para escribir directamente.';
+
         slide.className = 'contact-slide';
         slide.innerHTML = `
-            <button class="slide-close" aria-label="Cerrar">✕</button>
+            <button class="slide-close" type="button" aria-label="Cerrar">✕</button>
             <span class="slide-label">${label}</span>
             <div class="slide-value">${value}</div>
-            <div class="copy-container" style="display:flex; justify-content:center; margin-top:8px;">
-                <button class="copy-btn" id="copyContactBtn" title="Copiar" style="background:none; border:none; color:#00c2ff; cursor:pointer; padding:6px; border-radius:6px; transition:background 0.18s; display:flex; align-items:center; justify-content:center;">
+            <div class="copy-container">
+                <button class="copy-btn" type="button" title="Copiar">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2"/>
                     </svg>
+                    Copiar
                 </button>
             </div>
-            <div class="copy-notify" id="copyNotify" style="display:none; margin-top:6px; color:#7cf2b5; font-size:0.98rem; font-weight:600; text-align:center;">Copiado ✔</div>
-            <div style="font-size:0.95rem; color:#cfc6dd; margin-top:4px; text-align:center;">${type === 'phone' ? 'Puedes copiar el número para llamar o enviar WhatsApp.' : 'Puedes copiar el correo para escribir directamente.'}</div>
+            <div class="copy-notify" id="copyNotify" aria-live="polite">Copiado ✔</div>
+            <p class="slide-hint">${hint}</p>
         `;
         return slide;
     }
 
-    function showContactSlideFromButton(buttonEl, type) {
-        // close existing slides
-        document.querySelectorAll('.contact-slide.active').forEach(s => s.classList.remove('active'));
-        document.querySelectorAll('.contact-slide').forEach(s => s.remove());
+    function placeSlide(slide, anchorRect) {
+        const verticalOffset = 14;
+        const pad = 12;
 
-        const value = type === 'phone' ? (buttonEl.dataset.phone || '') : (buttonEl.dataset.email || '');
-        const label = type === 'phone' ? 'Teléfono de contacto' : 'Correo electrónico';
-        const slide = createContactSlide(type, value, label);
+        slide.style.left = `${anchorRect.left + anchorRect.width / 2}px`;
+        slide.style.top = `${anchorRect.bottom + verticalOffset}px`;
+        slide.style.transform = 'translate(-50%, 0)';
+        slide.style.maxHeight = `${Math.max(200, Math.floor(window.innerHeight * 0.45))}px`;
 
-        // Append slide to body and position it near the button to avoid clipping
-        document.body.appendChild(slide);
-    slide.style.position = 'fixed';
-        slide.style.zIndex = '4000';
-    slide.style.maxWidth = '320px';
-    slide.style.minWidth = '220px';
-        // initial position; will adjust after rendering
-        const rect = buttonEl.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        slide.style.left = centerX + 'px';
-        const vOffset = 10; // vertical offset
-        slide.style.top = (rect.bottom + vOffset) + 'px';
-        slide.style.transform = 'translateX(-50%) scale(0.98)';
-        // ensure slide fits: max-height and scroll if needed
-        slide.style.maxHeight = Math.max(180, Math.floor(window.innerHeight * 0.45)) + 'px';
-        slide.style.overflow = 'auto';
-        setTimeout(() => {
-            // If the slide would overflow the viewport at bottom, place it above the button with a small margin
-            const sh = slide.offsetHeight;
-            const margin = 8;
-            if (rect.bottom + vOffset + sh + margin > window.innerHeight) {
-                slide.style.top = (rect.top - sh - vOffset) + 'px';
+        requestAnimationFrame(() => {
+            const { offsetHeight, offsetWidth } = slide;
+            if (anchorRect.bottom + verticalOffset + offsetHeight > window.innerHeight - pad) {
+                slide.style.top = `${anchorRect.top - offsetHeight - verticalOffset}px`;
             }
-            // Clamp horizontally so the slide doesn't go off-screen
+
             const slideRect = slide.getBoundingClientRect();
-            const pad = 12;
             if (slideRect.left < pad) {
-                slide.style.left = pad + 'px';
-                slide.style.transform = 'translateX(0) scale(0.98)';
+                slide.style.left = `${pad + offsetWidth / 2}px`;
             } else if (slideRect.right > window.innerWidth - pad) {
-                slide.style.left = (window.innerWidth - pad) + 'px';
-                slide.style.transform = 'translateX(-100%) scale(0.98)';
+                slide.style.left = `${window.innerWidth - pad - offsetWidth / 2}px`;
             }
-            slide.classList.add('active');
-        }, 10);
 
-        // Close
-        slide.querySelector('.slide-close').addEventListener('click', () => {
-            slide.classList.remove('active');
-            setTimeout(() => slide.remove(), 320);
+            slide.classList.add('active');
+        });
+    }
+
+    function showContactSlide(triggerEl, type) {
+        const value = type === 'phone'
+            ? (triggerEl.dataset.phone || triggerEl.getAttribute('href')?.replace('tel:', '') || '')
+            : (triggerEl.dataset.email || triggerEl.getAttribute('href')?.replace('mailto:', '') || '');
+
+        if (!value) {
+            return;
+        }
+
+        removeActiveSlide();
+
+        const slide = createContactSlide(type, value);
+        document.body.appendChild(slide);
+        slideState.activeSlide = slide;
+
+        const rect = triggerEl.getBoundingClientRect();
+        placeSlide(slide, rect);
+
+        slide.querySelector('.slide-close')?.addEventListener('click', removeActiveSlide);
+
+        const copyBtn = slide.querySelector('.copy-btn');
+        const notify = slide.querySelector('#copyNotify');
+        const valueEl = slide.querySelector('.slide-value');
+
+        copyBtn?.addEventListener('click', () => {
+            const text = valueEl?.textContent?.trim();
+            if (!text) return;
+
+            const showNotify = () => {
+                if (notify) {
+                    notify.style.display = 'block';
+                    setTimeout(() => {
+                        notify.style.display = 'none';
+                    }, 1400);
+                }
+            };
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(showNotify);
+            } else {
+                const tmp = document.createElement('input');
+                tmp.value = text;
+                document.body.appendChild(tmp);
+                tmp.select();
+                document.execCommand('copy');
+                document.body.removeChild(tmp);
+                showNotify();
+            }
         });
 
-        // click outside to close (works with slide appended to body)
         setTimeout(() => {
-            document.addEventListener('mousedown', function handler(ev) {
-                if (!slide.contains(ev.target) && ev.target !== buttonEl) {
-                    slide.classList.remove('active');
-                    setTimeout(() => slide.remove(), 320);
-                    document.removeEventListener('mousedown', handler);
-                }
-            });
-        }, 50);
+            document.addEventListener('mousedown', handleOutsideClick, true);
+        }, 30);
+    }
 
-        // copy button
-        const copyBtn = slide.querySelector('#copyContactBtn');
-        const copyValue = slide.querySelector('.slide-value');
-        const notify = slide.querySelector('#copyNotify');
-        if(copyBtn && copyValue && notify) {
-            copyBtn.addEventListener('click', function() {
-                const val = copyValue.textContent.trim();
-                if(window.navigator && window.navigator.clipboard) {
-                    window.navigator.clipboard.writeText(val).then(()=>{
-                        notify.style.display = 'block';
-                        setTimeout(()=>{ notify.style.display = 'none'; }, 1400);
-                    });
-                } else {
-                    const tempInput = document.createElement('input');
-                    tempInput.value = val;
-                    document.body.appendChild(tempInput);
-                    tempInput.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(tempInput);
-                    notify.style.display = 'block';
-                    setTimeout(()=>{ notify.style.display = 'none'; }, 1400);
-                }
-            });
+    function openImmediate(type, el) {
+        const target = type === 'phone'
+            ? el.dataset.tel || el.dataset.phone || el.getAttribute('href')
+            : el.dataset.mailto || el.dataset.email || el.getAttribute('href');
+        if (target) {
+            window.location.href = target;
         }
     }
 
-    // Wire recommendation buttons
-    function openImmediate(actionType, btn) {
-        if(actionType === 'phone') {
-            const tel = btn.dataset.tel || ('tel:' + (btn.dataset.phone || '').replace(/\s+/g, ''));
-            if(tel) location.href = tel;
-        } else {
-            const mail = btn.dataset.email ? ('mailto:' + btn.dataset.email) : (btn.dataset.mailto || '');
-            if(mail) location.href = mail;
-        }
-    }
-
-    // helper to add long-press detection for touch devices
     function addLongPressHandler(el, callback, ms = 600) {
         let timer = null;
-        el.addEventListener('touchstart', function(e) {
+        el.addEventListener('touchstart', () => {
             timer = setTimeout(() => {
-                callback(e);
+                callback();
                 timer = null;
             }, ms);
-        }, {passive:true});
-        ['touchend','touchmove','touchcancel'].forEach(ev => {
-            el.addEventListener(ev, function() { if(timer){ clearTimeout(timer); timer = null; } }, {passive:true});
+        }, { passive: true });
+
+        ['touchend', 'touchmove', 'touchcancel'].forEach(evt => {
+            el.addEventListener(evt, () => {
+                if (timer) {
+                    clearTimeout(timer);
+                    timer = null;
+                }
+            }, { passive: true });
         });
     }
 
+    function attachContactHandler(el, type, options = {}) {
+        if (!el) return;
+        el.addEventListener('click', evt => {
+            evt.preventDefault();
+            showContactSlide(el, type);
+        });
+
+        if (options.openOnDoubleClick) {
+            el.addEventListener('dblclick', evt => {
+                evt.preventDefault();
+                openImmediate(type, el);
+            });
+        }
+
+        if (options.enableLongPress) {
+            addLongPressHandler(el, () => openImmediate(type, el));
+        }
+    }
+
+    // Header & sticky icons
+    attachContactHandler(document.getElementById('contactPhone'), 'phone', { openOnDoubleClick: true, enableLongPress: true });
+    attachContactHandler(document.getElementById('contactEmail'), 'email', { openOnDoubleClick: true, enableLongPress: true });
+    attachContactHandler(document.getElementById('stickyContactPhone'), 'phone', { openOnDoubleClick: true, enableLongPress: true });
+    attachContactHandler(document.getElementById('stickyContactEmail'), 'email', { openOnDoubleClick: true, enableLongPress: true });
+
+    // Recommendation buttons
     document.querySelectorAll('.recommendation-contact-phone').forEach(btn => {
-        btn.addEventListener('click', function(e){
-            e.preventDefault();
-            showContactSlideFromButton(btn, 'phone');
-        });
-        // double click (desktop) opens tel immediately
-        btn.addEventListener('dblclick', function(e){
-            e.preventDefault();
-            openImmediate('phone', btn);
-        });
-        // long-press (touch) opens tel
-        addLongPressHandler(btn, function(){ openImmediate('phone', btn); });
+        attachContactHandler(btn, 'phone', { openOnDoubleClick: true, enableLongPress: true });
     });
 
     document.querySelectorAll('.recommendation-contact-email').forEach(btn => {
-        btn.addEventListener('click', function(e){
-            e.preventDefault();
-            showContactSlideFromButton(btn, 'email');
-        });
-        // double click (desktop) opens mailto immediately
-        btn.addEventListener('dblclick', function(e){
-            e.preventDefault();
-            openImmediate('email', btn);
-        });
-        // long-press (touch) opens mailto
-        addLongPressHandler(btn, function(){ openImmediate('email', btn); });
+        attachContactHandler(btn, 'email', { openOnDoubleClick: true, enableLongPress: true });
     });
-});
+}
