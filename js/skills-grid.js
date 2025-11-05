@@ -8,9 +8,11 @@
         { id: 'powerbi', name: 'Power BI', category: 'bi', level: 'unlocked', progress: 90, icon: 'assets/icons/tools/POWER BI.png', desc: 'Plataforma integral de Business Intelligence' },
         { id: 'sql', name: 'SQL', category: 'data', level: 'unlocked', progress: 85, icon: 'assets/icons/tools/SQL.png', desc: 'Gestión y consulta de bases de datos' },
         { id: 'excel', name: 'Excel', category: 'analytics', level: 'unlocked', progress: 88, icon: 'assets/icons/tools/EXCEL.jpg', desc: 'Análisis y modelado de datos avanzado' },
+        { id: 'sap', name: 'SAP Business One', category: 'erp', level: 'unlocked', progress: 82, icon: 'assets/icons/tools/POWER BI.png', desc: 'Sistema ERP para gestión empresarial' },
         { id: 'appsheet', name: 'AppSheet', category: 'nocode', level: 'unlocked', progress: 75, icon: 'assets/icons/tools/APPSHEET.png', desc: 'Desarrollo de aplicaciones sin código' },
         { id: 'python', name: 'Python', category: 'programming', level: 'unlocked', progress: 80, icon: 'assets/icons/tools/PYTHON.png', desc: 'Análisis de datos y Machine Learning' },
-        { id: 'github', name: 'GitHub & Copilot', category: 'development', level: 'unlocked', progress: 85, icon: 'assets/icons/tools/GIT.png', desc: 'Control de versiones y desarrollo asistido por IA' }
+        { id: 'vscode', name: 'VS Code', category: 'development', level: 'unlocked', progress: 85, icon: 'assets/icons/tools/VSCODE.jpeg', desc: 'Editor de código profesional' },
+        { id: 'github', name: 'GitHub', category: 'development', level: 'unlocked', progress: 85, icon: 'assets/icons/tools/GIT.png', desc: 'Control de versiones y colaboración' }
     ];
 
     const VISIBLE_COUNT = 4;
@@ -87,35 +89,7 @@
         progressBar.appendChild(progressFill);
         progressWrap.appendChild(progressBar);
 
-        // Toggle details button (accessible) - now an icon
-        const toggleBtn = document.createElement('button');
-        toggleBtn.className = 'skill-toggle-btn';
-        toggleBtn.type = 'button';
-        toggleBtn.setAttribute('aria-expanded', 'false');
-        toggleBtn.setAttribute('aria-controls', `detail-${skill.id}`);
-        toggleBtn.setAttribute('aria-label', 'Ver detalles de ' + skill.name);
-    // Chevron down icon that will rotate when expanded
-    toggleBtn.innerHTML = `<svg class="toggle-icon" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`;
-        // Remove all the inline styles since CSS handles styling now
-
         controls.appendChild(progressWrap);
-        controls.appendChild(toggleBtn);
-
-        // Instead of inline details, we will open the slide-in sidebar
-        const details = null;
-
-        // Toggle behavior
-        toggleBtn.addEventListener('click', function(){
-            openSkillsSidebar({
-                id: skill.id,
-                name: skill.name,
-                icon: skill.icon,
-                capabilities: getCapabilitiesForSkill(skill.id)
-            });
-            // Pause carousel while sidebar is open
-            isPaused = true;
-            setTimeout(() => card.scrollIntoView({behavior: 'smooth', block: 'nearest'}), 120);
-        });
 
         text.appendChild(name);
         text.appendChild(desc);
@@ -159,58 +133,7 @@
     }
 
     function addNav(viewport, track) {
-        const nav = document.createElement('div');
-        nav.className = 'skills-nav';
-        const prev = document.createElement('button'); prev.setAttribute('aria-label','Anterior'); prev.textContent = '‹';
-        const next = document.createElement('button'); next.setAttribute('aria-label','Siguiente'); next.textContent = '›';
-        nav.appendChild(prev); nav.appendChild(next);
-        viewport.appendChild(nav);
-        
-        // Add play/pause toggle button
-        const toggleContainer = document.createElement('div');
-        toggleContainer.className = 'skills-nav-toggle';
-        const toggleBtn = document.createElement('button');
-        toggleBtn.setAttribute('aria-label', 'Pausar/Reanudar carrusel');
-        toggleBtn.className = 'carousel-toggle-btn';
-        toggleBtn.innerHTML = `
-            <svg class="pause-icon" viewBox="0 0 24 24" width="18" height="18">
-                <rect x="6" y="4" width="4" height="16" fill="currentColor"/>
-                <rect x="14" y="4" width="4" height="16" fill="currentColor"/>
-            </svg>
-            <svg class="play-icon" viewBox="0 0 24 24" width="18" height="18" style="display:none;">
-                <path d="M8 5v14l11-7z" fill="currentColor"/>
-            </svg>
-        `;
-        toggleContainer.appendChild(toggleBtn);
-        viewport.appendChild(toggleContainer);
-        
-        const nudge = (dir) => {
-            // Move by one card width per click
-            const delta = dir * Math.max(240, trackState.cardW || 260);
-            trackState.pos += delta;
-            // clamp within -totalW..0 visual window then wrap if needed
-            if (trackState.pos > 0) trackState.pos -= trackState.totalW;
-            if (-trackState.pos >= trackState.totalW) trackState.pos += trackState.totalW;
-            track.style.transform = `translateX(${trackState.pos}px)`;
-        };
-        prev.addEventListener('click', () => nudge(1));
-        next.addEventListener('click', () => nudge(-1));
-        
-        // Toggle play/pause
-        toggleBtn.addEventListener('click', () => {
-            isPaused = !isPaused;
-            const pauseIcon = toggleBtn.querySelector('.pause-icon');
-            const playIcon = toggleBtn.querySelector('.play-icon');
-            if (isPaused) {
-                pauseIcon.style.display = 'none';
-                playIcon.style.display = 'block';
-                toggleBtn.setAttribute('aria-label', 'Reanudar carrusel');
-            } else {
-                pauseIcon.style.display = 'block';
-                playIcon.style.display = 'none';
-                toggleBtn.setAttribute('aria-label', 'Pausar carrusel');
-            }
-        });
+        // No navigation buttons - clean carousel
     }
 
     function addWheel(viewport) {
@@ -390,6 +313,12 @@
                 'Modelado de datos complejos',
                 'Análisis con tablas dinámicas'
             ],
+            sap: [
+                'Integración con SQL Server',
+                'Consultas y reportes',
+                'Gestión de datos empresariales',
+                'Conexión con Power BI'
+            ],
             appsheet: [
                 'Desarrollo de apps sin código',
                 'Automatización de flujos',
@@ -400,10 +329,15 @@
                 'Visualización con Matplotlib',
                 'Modelos de Machine Learning con Scikit-learn'
             ],
+            vscode: [
+                'Desarrollo con extensiones',
+                'GitHub Copilot',
+                'Debugging y control de versiones'
+            ],
             github: [
                 'Control de versiones',
-                'Desarrollo asistido por IA',
-                'Integración con flujos de trabajo de BI y automatización'
+                'Colaboración en equipo',
+                'CI/CD y automatización'
             ]
         };
         return capabilities[id] || [];
