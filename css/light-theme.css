@@ -473,10 +473,15 @@ main.cv-main {
 .skills-nav {
     position: absolute;
     top: 50%;
-    right: 16px;
+    left: 0;
+    right: 0;
     transform: translateY(-50%);
     display: flex;
-    gap: 12px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12px;
+    pointer-events: none;
+    z-index: 5;
 }
 
 .skills-nav button {
@@ -487,6 +492,7 @@ main.cv-main {
     background: var(--bg-card);
     color: var(--accent-primary);
     cursor: pointer;
+    pointer-events: auto;
     transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
