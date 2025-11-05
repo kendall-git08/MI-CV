@@ -165,6 +165,25 @@
         const next = document.createElement('button'); next.setAttribute('aria-label','Siguiente'); next.textContent = '›';
         nav.appendChild(prev); nav.appendChild(next);
         viewport.appendChild(nav);
+        
+        // Add play/pause toggle button
+        const toggleContainer = document.createElement('div');
+        toggleContainer.className = 'skills-nav-toggle';
+        const toggleBtn = document.createElement('button');
+        toggleBtn.setAttribute('aria-label', 'Pausar/Reanudar carrusel');
+        toggleBtn.className = 'carousel-toggle-btn';
+        toggleBtn.innerHTML = `
+            <svg class="pause-icon" viewBox="0 0 24 24" width="18" height="18">
+                <rect x="6" y="4" width="4" height="16" fill="currentColor"/>
+                <rect x="14" y="4" width="4" height="16" fill="currentColor"/>
+            </svg>
+            <svg class="play-icon" viewBox="0 0 24 24" width="18" height="18" style="display:none;">
+                <path d="M8 5v14l11-7z" fill="currentColor"/>
+            </svg>
+        `;
+        toggleContainer.appendChild(toggleBtn);
+        viewport.appendChild(toggleContainer);
+        
         const nudge = (dir) => {
             // Move by one card width per click
             const delta = dir * Math.max(240, trackState.cardW || 260);
@@ -176,6 +195,22 @@
         };
         prev.addEventListener('click', () => nudge(1));
         next.addEventListener('click', () => nudge(-1));
+        
+        // Toggle play/pause
+        toggleBtn.addEventListener('click', () => {
+            isPaused = !isPaused;
+            const pauseIcon = toggleBtn.querySelector('.pause-icon');
+            const playIcon = toggleBtn.querySelector('.play-icon');
+            if (isPaused) {
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'block';
+                toggleBtn.setAttribute('aria-label', 'Reanudar carrusel');
+            } else {
+                pauseIcon.style.display = 'block';
+                playIcon.style.display = 'none';
+                toggleBtn.setAttribute('aria-label', 'Pausar carrusel');
+            }
+        });
     }
 
     function addWheel(viewport) {
