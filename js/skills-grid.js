@@ -5,12 +5,12 @@
 
     // Professional skills data with specialized capabilities
     const skillsData = [
-        { id: 'powerbi', name: 'Power BI', category: 'bi', level: 'unlocked', progress: 90, icon: 'ICONOS DE HERRAMIENTAS/POWER BI.png', desc: 'Plataforma integral de Business Intelligence' },
-        { id: 'sql', name: 'SQL', category: 'data', level: 'unlocked', progress: 85, icon: 'ICONOS DE HERRAMIENTAS/SQL.png', desc: 'Gestión y consulta de bases de datos' },
-        { id: 'excel', name: 'Excel', category: 'analytics', level: 'unlocked', progress: 88, icon: 'ICONOS DE HERRAMIENTAS/EXCEL.jpg', desc: 'Análisis y modelado de datos avanzado' },
-        { id: 'appsheet', name: 'AppSheet', category: 'nocode', level: 'unlocked', progress: 75, icon: 'ICONOS DE HERRAMIENTAS/APPSHEET.png', desc: 'Desarrollo de aplicaciones sin código' },
-        { id: 'python', name: 'Python', category: 'programming', level: 'unlocked', progress: 80, icon: 'ICONOS DE HERRAMIENTAS/PYTHON.png', desc: 'Análisis de datos y Machine Learning' },
-        { id: 'github', name: 'GitHub & Copilot', category: 'development', level: 'unlocked', progress: 85, icon: 'ICONOS DE HERRAMIENTAS/GIT.png', desc: 'Control de versiones y desarrollo asistido por IA' }
+        { id: 'powerbi', name: 'Power BI', category: 'bi', level: 'unlocked', progress: 90, icon: 'assets/icons/tools/POWER BI.png', desc: 'Plataforma integral de Business Intelligence' },
+        { id: 'sql', name: 'SQL', category: 'data', level: 'unlocked', progress: 85, icon: 'assets/icons/tools/SQL.png', desc: 'Gestión y consulta de bases de datos' },
+        { id: 'excel', name: 'Excel', category: 'analytics', level: 'unlocked', progress: 88, icon: 'assets/icons/tools/EXCEL.jpg', desc: 'Análisis y modelado de datos avanzado' },
+        { id: 'appsheet', name: 'AppSheet', category: 'nocode', level: 'unlocked', progress: 75, icon: 'assets/icons/tools/APPSHEET.png', desc: 'Desarrollo de aplicaciones sin código' },
+        { id: 'python', name: 'Python', category: 'programming', level: 'unlocked', progress: 80, icon: 'assets/icons/tools/PYTHON.png', desc: 'Análisis de datos y Machine Learning' },
+        { id: 'github', name: 'GitHub & Copilot', category: 'development', level: 'unlocked', progress: 85, icon: 'assets/icons/tools/GIT.png', desc: 'Control de versiones y desarrollo asistido por IA' }
     ];
 
     const VISIBLE_COUNT = 4;
