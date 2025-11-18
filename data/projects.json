@@ -1,0 +1,131 @@
+{
+  "companies": [
+    {
+      "id": "coprodesa",
+      "name": "Coprodesa S.A.",
+      "period": "2024 - Actualidad",
+      "accent": "var(--accent-primary)",
+      "projects": [
+        {
+          "id": "cop-presupuestos",
+          "title": "Seguimiento de Presupuestos",
+          "role": "Dashboard financiero • Power BI",
+          "summary": "Mantenimiento continuo del tablero maestro de presupuesto, con limpieza de datos, modelado semántico y despliegue en Power BI Service para la dirección financiera.",
+          "stack": ["Power BI", "SQL", "Dataflows"],
+          "heroImage": "assets/images/VENTAS POR UND.png",
+          "highlights": [
+            "Automatización de refrescos mediante dataflows conectados a SQL On-Premise",
+            "Indicadores clave: forecast vs real, cash-flow y variaciones mensuales",
+            "Distribución controlada por etapas (dev, test, prod) con pipelines"
+          ],
+          "attachments": [
+            {
+              "label": "Dataset limpio (CSV)",
+              "type": "excel",
+              "size": "160 KB",
+              "url": "assets/docs/seguimiento-presupuestos.csv"
+            },
+            {
+              "label": "Resumen ejecutivo",
+              "type": "pdf",
+              "size": "2.1 MB",
+              "url": "assets/docs/seguimiento-presupuestos.pdf"
+            }
+          ],
+          "gallery": [
+            {
+              "image": "assets/images/VENTAS POR UND.png",
+              "caption": "Comparativo forecast vs real"
+            },
+            {
+              "image": "assets/images/MODELO DE DATOS.png",
+              "caption": "Modelo tabular y relaciones"
+            }
+          ]
+        },
+        {
+          "id": "cop-viaticos",
+          "title": "Liquidación de Viáticos",
+          "role": "App móvil • AppSheet",
+          "summary": "Digitalización end-to-end del proceso de viáticos: captura móvil, validación automática, aprobaciones y panel de control diario.",
+          "stack": ["AppSheet", "Apps Script", "Drive"],
+          "heroImage": "assets/images/LIQ VIATICOS.png",
+          "highlights": [
+            "Bot de aprobaciones con notificaciones push",
+            "Validaciones de límites y políticas corporativas",
+            "Panel de auditoría diario consolidado"
+          ],
+          "attachments": [
+            {
+              "label": "Manual funcional",
+              "type": "pdf",
+              "size": "1.1 MB",
+              "url": "assets/docs/liquidacion-viaticos.pdf"
+            }
+          ],
+          "gallery": [
+            {
+              "image": "assets/images/APPS EXTERNAS.png",
+              "caption": "Vista móvil del formulario"
+            }
+          ]
+        },
+        {
+          "id": "cop-inventario",
+          "title": "App para Inventario Anual",
+          "role": "AppSheet • Liderazgo de proceso",
+          "summary": "Herramienta móvil para conteo físico anual con roles, validaciones y tablero de avance en tiempo real.",
+          "stack": ["AppSheet", "Power BI", "SharePoint"],
+          "heroImage": "assets/images/MODELO RELACIONAL INVENTARIO.png",
+          "highlights": [
+            "30+ operarios sincronizados en campo",
+            "Alertas automáticas por lotes con discrepancias",
+            "Capacitación y despliegue en menos de 2 semanas"
+          ],
+          "attachments": [],
+          "gallery": [
+            {
+              "image": "assets/images/MODELO RELACIONAL INVENTARIO.png",
+              "caption": "Mapa de entidades" 
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eaton",
+      "name": "Eaton",
+      "period": "2023 - 2024",
+      "accent": "var(--accent-mint)",
+      "projects": [
+        {
+          "id": "eaton-kpi",
+          "title": "Análisis de KPIs Operativos",
+          "role": "Mejora continua • Excel",
+          "summary": "Seguimiento de indicadores críticos de planta y generación de tableros diarios con metodología lean.",
+          "stack": ["Excel", "Power Query", "VBA"],
+          "heroImage": "assets/images/KPI.png",
+          "highlights": [
+            "Implementación de tableros A3 y rutinas GEMBA",
+            "Integración con reportes de costos para detectar scrap",
+            "Automatización de alertas vía Outlook add-ins"
+          ],
+          "attachments": [
+            {
+              "label": "Plantilla KPI diaria",
+              "type": "excel",
+              "size": "95 KB",
+              "url": "assets/docs/eaton-kpi-template.csv"
+            }
+          ],
+          "gallery": [
+            {
+              "image": "assets/images/KPI.png",
+              "caption": "Dashboard diario"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
