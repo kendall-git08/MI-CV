@@ -1,10 +1,11 @@
 {
-  "companies": [
+  "areas": [
     {
-      "id": "coprodesa",
-      "name": "Coprodesa S.A.",
-      "period": "2024 - Actualidad",
-      "accent": "var(--accent-primary)",
+      "id": "finance",
+      "name": "Área Financiera",
+      "tagline": "Control, Presupuestos y Rentabilidad",
+      "accent": "#2563eb",
+      "icon": "assets/icons/areas/finance.svg",
       "projects": [
         {
           "id": "cop-presupuestos",
@@ -44,6 +45,21 @@
           ]
         },
         {
+          "id": "eaton-costos",
+          "title": "Seguimiento de Costos y Ahorros",
+          "role": "Análisis Financiero • Excel",
+          "summary": "Desarrollo de propuestas de ahorro en proyectos de planta. Análisis de costos operativos y seguimiento de iniciativas de optimización.",
+          "stack": ["Excel", "Power Query", "VBA"],
+          "heroImage": "assets/images/MODELO DE DATOS.png",
+          "highlights": [
+            "Detección de desviaciones en costos operativos",
+            "Validación de ahorros (Hard/Soft savings)",
+            "Reportes mensuales para gerencia de planta"
+          ],
+          "attachments": [],
+          "gallery": []
+        },
+        {
           "id": "cop-viaticos",
           "title": "Liquidación de Viáticos",
           "role": "App móvil • AppSheet",
@@ -69,7 +85,55 @@
               "caption": "Vista móvil del formulario"
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "commercial",
+      "name": "Área Comercial",
+      "tagline": "Ventas, Comisiones y Clientes",
+      "accent": "#f97316",
+      "icon": "assets/icons/areas/commercial.svg",
+      "projects": [
+        {
+          "id": "cop-comisiones",
+          "title": "Automatización de Pago de Comisiones",
+          "role": "SQL • Excel • Power BI",
+          "summary": "Desarrollo de un sistema automatizado para el cálculo y pago de comisiones al equipo de ventas, reduciendo errores y tiempos de procesamiento.",
+          "stack": ["SQL Server", "Excel", "Power BI"],
+          "heroImage": "assets/images/ADM FORECAST.png",
+          "highlights": [
+            "Cálculo automático basado en reglas de negocio complejas",
+            "Reducción del tiempo de procesamiento de 3 días a 4 horas",
+            "Transparencia total para la fuerza de ventas"
+          ],
+          "attachments": [],
+          "gallery": []
         },
+        {
+          "id": "cop-medidores",
+          "title": "Activación de Medidores",
+          "role": "Proceso • AppSheet",
+          "summary": "Diseño y automatización del flujo para la activación de medidores, mejorando la eficiencia y el control del proceso de servicio al cliente.",
+          "stack": ["AppSheet", "Google Sheets"],
+          "heroImage": "assets/images/MEDIDORES.png",
+          "highlights": [
+            "Trazabilidad completa de la solicitud",
+            "Reducción de tiempos de espera del cliente",
+            "Integración con equipo de campo"
+          ],
+          "attachments": [],
+          "gallery": []
+        }
+      ]
+    },
+    {
+      "id": "logistics",
+      "name": "Logística",
+      "tagline": "Inventarios, Distribución y Cadena de Suministro",
+      "accent": "#8b5cf6",
+      "icon": "assets/icons/areas/logistics.svg",
+      "projects": [
         {
           "id": "cop-inventario",
           "title": "App para Inventario Anual",
@@ -93,10 +157,80 @@
       ]
     },
     {
-      "id": "eaton",
-      "name": "Eaton",
-      "period": "2023 - 2024",
-      "accent": "var(--accent-mint)",
+      "id": "it",
+      "name": "Tecnologías de Información",
+      "tagline": "Datos, Infraestructura y Desarrollo",
+      "accent": "#0ea5e9",
+      "icon": "assets/icons/areas/it.svg",
+      "projects": [
+        {
+          "id": "cop-pbi-admin",
+          "title": "Administración de Power BI Service",
+          "role": "Gestión de Workspaces y Pipelines",
+          "summary": "Creación de dataflows, mantenimiento de pipelines, distribución de informes y optimización de consultas en Power Query.",
+          "stack": ["Power BI Service", "Power Query"],
+          "heroImage": "assets/images/AZURE Y POWER BI.png",
+          "highlights": [
+            "Gobernanza de datos y seguridad RLS",
+            "Optimización de tiempos de actualización",
+            "Gestión de licencias y capacidades"
+          ],
+          "attachments": [],
+          "gallery": []
+        },
+        {
+          "id": "cop-sql-gateway",
+          "title": "Power Query + SQL On-Premise",
+          "role": "Integración de datos • SQL Gateway",
+          "summary": "Creación de consultas SQL directamente sobre bases de datos on-premise utilizando el gateway de Power BI.",
+          "stack": ["SQL Server", "On-premises Gateway"],
+          "heroImage": "assets/images/CONSULTAS SQL.png",
+          "highlights": [
+            "Conexión segura híbrida nube-tierra",
+            "Consultas optimizadas para reducir carga en servidor",
+            "Vistas materializadas para reportes frecuentes"
+          ],
+          "attachments": [],
+          "gallery": []
+        },
+        {
+          "id": "cop-microapps",
+          "title": "Desarrollo de Micro-Apps",
+          "role": "Soluciones a medida con AppSheet",
+          "summary": "Responsable del ciclo completo de desarrollo: diseño, implementación, gestión de datos y creación de datamarts para clientes VIP.",
+          "stack": ["AppSheet", "UX/UI"],
+          "heroImage": "assets/images/APPS EXTERNAS.png",
+          "highlights": [
+            "Desarrollo ágil de soluciones departamentales",
+            "Interfaces intuitivas para usuarios no técnicos",
+            "Integración con ecosistema Google Workspace"
+          ],
+          "attachments": [],
+          "gallery": []
+        },
+        {
+          "id": "cop-modeling",
+          "title": "Modelado de Datos en Power BI",
+          "role": "Modelo de costos y gastos",
+          "summary": "Gestión de tickets, análisis de requisitos, creación de consultas e integración con otros reportes del negocio.",
+          "stack": ["DAX", "Star Schema"],
+          "heroImage": "assets/images/MODELO DE DATOS.png",
+          "highlights": [
+            "Diseño de esquemas en estrella eficientes",
+            "Medidas DAX avanzadas para inteligencia de tiempo",
+            "Documentación de metadatos y diccionario de datos"
+          ],
+          "attachments": [],
+          "gallery": []
+        }
+      ]
+    },
+    {
+      "id": "improvement",
+      "name": "Mejora Continua",
+      "tagline": "Eficiencia, Calidad y Procesos",
+      "accent": "#10b981",
+      "icon": "assets/icons/areas/improvement.svg",
       "projects": [
         {
           "id": "eaton-kpi",
@@ -124,8 +258,39 @@
               "caption": "Dashboard diario"
             }
           ]
+        },
+        {
+          "id": "cop-kpi-mgmt",
+          "title": "Gestión y Seguimiento de KPIs",
+          "role": "Power BI • DAX",
+          "summary": "Creación y mantenimiento de dashboards para el seguimiento de KPIs críticos del negocio, proporcionando visibilidad en tiempo real del rendimiento.",
+          "stack": ["Power BI", "DAX"],
+          "heroImage": "assets/images/KPI.png",
+          "highlights": [
+            "Visualización de tendencias y desviaciones",
+            "Alertas automáticas a gerencia",
+            "Estandarización de definiciones de métricas"
+          ],
+          "attachments": [],
+          "gallery": []
         }
       ]
+    },
+    {
+      "id": "engineering",
+      "name": "Ingeniería",
+      "tagline": "Diseño, Operaciones y Técnica",
+      "accent": "#6366f1",
+      "icon": "assets/icons/areas/engineering.svg",
+      "projects": []
+    },
+    {
+      "id": "hr",
+      "name": "Recursos Humanos",
+      "tagline": "Talento, Cultura y Gestión",
+      "accent": "#ec4899",
+      "icon": "assets/icons/areas/hr.svg",
+      "projects": []
     }
   ]
 }

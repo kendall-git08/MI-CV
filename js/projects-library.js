@@ -33,31 +33,39 @@
         const fragment = document.createDocumentFragment();
         const galleryModal = ensureGalleryModal();
 
-        (data?.companies || []).forEach(company => {
+        (data?.areas || []).forEach(area => {
             const block = document.createElement('section');
             block.className = 'projects-block';
 
             const header = document.createElement('header');
             header.className = 'projects-block-header';
-            header.style.borderLeft = `4px solid ${company.accent || 'var(--accent-primary)'}`;
+            header.style.borderLeft = `4px solid ${area.accent || 'var(--accent-primary)'}`;
 
-            const heading = document.createElement('div');
-            heading.innerHTML = `
-                <div class="projects-block-badge">Empresa</div>
-                <h3>${company.name || 'Proyecto'}</h3>
+            const headerContent = document.createElement('div');
+            headerContent.className = 'area-header-content';
+
+            if (area.icon) {
+                const icon = document.createElement('img');
+                icon.src = area.icon;
+                icon.alt = '';
+                icon.className = 'area-icon';
+                headerContent.appendChild(icon);
+            }
+
+            const textGroup = document.createElement('div');
+            textGroup.innerHTML = `
+                <div class="projects-block-badge">Departamento</div>
+                <h3>${area.name || 'Área'}</h3>
+                <p class="area-tagline">${area.tagline || ''}</p>
             `;
+            headerContent.appendChild(textGroup);
 
-            const period = document.createElement('span');
-            period.className = 'projects-block-period';
-            period.textContent = company.period || '';
-
-            header.appendChild(heading);
-            header.appendChild(period);
+            header.appendChild(headerContent);
 
             const grid = document.createElement('div');
             grid.className = 'projects-block-grid';
 
-            (company.projects || []).forEach(project => {
+            (area.projects || []).forEach(project => {
                 const card = buildProjectCard(project, galleryModal);
                 grid.appendChild(card);
             });

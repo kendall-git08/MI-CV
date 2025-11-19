@@ -1621,3 +1621,24 @@ main.cv-main {
         border: 1px solid #d1d5db;
     }
 }
+
+.area-header-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+}
+
+.area-icon {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    /* Optional: add a subtle background or padding if icons are transparent */
+}
+
+.area-tagline {
+    margin: 4px 0 0;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-weight: 400;
+}
