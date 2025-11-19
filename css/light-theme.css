@@ -864,11 +864,6 @@ main.cv-main {
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--text-muted);
-    font-weight: 600;
-}
-
-.projects-block-badge img {
-    opacity: 0.7;
 }
 
 .projects-block-grid {
