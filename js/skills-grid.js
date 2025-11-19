@@ -15,6 +15,30 @@
         { id: 'github', name: 'GitHub', category: 'development', level: 'unlocked', progress: 85, icon: 'assets/icons/tools/GIT.png', desc: 'Control de versiones y colaboración' }
     ];
 
+    // Secondary skills for the markers section
+    const secondarySkills = [
+        {
+            category: "Análisis de Datos",
+            items: ["DAX Avanzado", "Power Query (M)", "Looker Studio", "Tableau", "Google Sheets"]
+        },
+        {
+            category: "Ingeniería de Datos",
+            items: ["SQL Server", "Google BigQuery", "ETL Pipelines", "Data Modeling", "Star Schema", "Dataflows"]
+        },
+        {
+            category: "Programación & Ciencia de Datos",
+            items: ["Pandas & NumPy", "Scikit-learn", "R Language", "VBA / Macros", "Google Apps Script"]
+        },
+        {
+            category: "Herramientas & Cloud",
+            items: ["Google Cloud Platform", "Azure", "Bitrix24 API", "Jira", "SharePoint"]
+        },
+        {
+            category: "Metodologías",
+            items: ["Mejora Continua (Kaizen)", "Lean Six Sigma", "KPI Management", "Gestión de Proyectos", "Scrum"]
+        }
+    ];
+
     const VISIBLE_COUNT = 4;
     const STEP_MS = 16; // ~60fps
     const PX_PER_TICK = 0.7; // smooth continuous speed
@@ -239,6 +263,10 @@
             measureTrack(track, viewport);
             startAuto(track);
         });
+        
+        // Render secondary skills markers
+        renderSecondarySkills();
+
         // pause on hover/focus
         viewport.addEventListener('mouseenter', () => { 
             // Only pause if no details are open
@@ -266,6 +294,36 @@
         });
         // Update measurements on resize
         window.addEventListener('resize', () => measureTrack(track, viewport));
+    }
+
+    function renderSecondarySkills() {
+        const container = document.getElementById('moreSkillsGrid');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        secondarySkills.forEach(group => {
+            const groupEl = document.createElement('div');
+            groupEl.className = 'skill-group';
+            
+            const title = document.createElement('h5');
+            title.className = 'skill-group-title';
+            title.textContent = group.category;
+            
+            const list = document.createElement('div');
+            list.className = 'skill-tags-list';
+            
+            group.items.forEach(item => {
+                const tag = document.createElement('span');
+                tag.className = 'skill-tag';
+                tag.textContent = item;
+                list.appendChild(tag);
+            });
+            
+            groupEl.appendChild(title);
+            groupEl.appendChild(list);
+            container.appendChild(groupEl);
+        });
     }
 
     function updateCounts(){

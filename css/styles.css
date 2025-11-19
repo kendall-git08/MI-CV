@@ -458,6 +458,63 @@ skills-nav button:hover {
 }
 
 /* ===============================================
+   Secondary Skills Markers
+   =============================================== */
+
+.more-skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    padding: 24px 8px 8px;
+    margin-top: 12px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.skill-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.skill-group-title {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.skill-tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    background: var(--bg-soft-alt);
+    border: 1px solid var(--border-subtle);
+    border-radius: 999px;
+    font-size: 0.9rem;
+    color: var(--text-body);
+    font-weight: 500;
+    transition: all var(--transition-fast);
+    cursor: default;
+}
+
+.skill-tag:hover {
+    background: var(--bg-card);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xs);
+}
+
+/* ===============================================
    Floating action buttons (projects & certifications)
    =============================================== */
 
