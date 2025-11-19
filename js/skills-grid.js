@@ -5,12 +5,12 @@
 
     // Professional skills data with specialized capabilities
     const skillsData = [
-        { id: 'powerbi', name: 'Power BI', category: 'bi', level: 'unlocked', progress: 90, icon: 'assets/icons/tools/POWER BI.png', desc: 'Plataforma integral de Business Intelligence' },
-        { id: 'sql', name: 'SQL', category: 'data', level: 'unlocked', progress: 85, icon: 'assets/icons/tools/SQL.png', desc: 'Gestión y consulta de bases de datos' },
-        { id: 'excel', name: 'Excel', category: 'analytics', level: 'unlocked', progress: 88, icon: 'assets/icons/tools/EXCEL.jpg', desc: 'Análisis y modelado de datos avanzado' },
-        { id: 'sap', name: 'SAP Business One', category: 'erp', level: 'unlocked', progress: 82, icon: 'assets/icons/tools/POWER BI.png', desc: 'Sistema ERP para gestión empresarial' },
-        { id: 'appsheet', name: 'AppSheet', category: 'nocode', level: 'unlocked', progress: 75, icon: 'assets/icons/tools/APPSHEET.png', desc: 'Desarrollo de aplicaciones sin código' },
-        { id: 'python', name: 'Python', category: 'programming', level: 'unlocked', progress: 80, icon: 'assets/icons/tools/PYTHON.png', desc: 'Análisis de datos y Machine Learning' },
+        { id: 'powerbi', name: 'Power BI', category: 'bi', level: 'unlocked', progress: 90, icon: 'assets/icons/tools/POWER BI.png', desc: 'Dashboards, DAX, Dataflows y modelado de datos' },
+        { id: 'sql', name: 'SQL Server', category: 'data', level: 'unlocked', progress: 85, icon: 'assets/icons/tools/SQL.png', desc: 'Consultas complejas, ETL y optimización' },
+        { id: 'excel', name: 'Excel Avanzado', category: 'analytics', level: 'unlocked', progress: 88, icon: 'assets/icons/tools/EXCEL.jpg', desc: 'Power Query, Power Pivot y automatización' },
+        { id: 'sap', name: 'SAP Business One', category: 'erp', level: 'unlocked', progress: 82, icon: 'assets/icons/tools/POWER BI.png', desc: 'Integración con SQL Server y reportería' },
+        { id: 'appsheet', name: 'AppSheet', category: 'nocode', level: 'unlocked', progress: 78, icon: 'assets/icons/tools/APPSHEET.png', desc: 'Apps empresariales y automatización de procesos' },
+        { id: 'python', name: 'Python', category: 'programming', level: 'unlocked', progress: 75, icon: 'assets/icons/tools/PYTHON.png', desc: 'Machine Learning, análisis de datos y automatización' },
         { id: 'vscode', name: 'VS Code', category: 'development', level: 'unlocked', progress: 85, icon: 'assets/icons/tools/VSCODE.jpeg', desc: 'Editor de código profesional' },
         { id: 'github', name: 'GitHub', category: 'development', level: 'unlocked', progress: 85, icon: 'assets/icons/tools/GIT.png', desc: 'Control de versiones y colaboración' }
     ];
@@ -18,24 +18,32 @@
     // Secondary skills for the markers section
     const secondarySkills = [
         {
-            category: "Análisis de Datos",
-            items: ["DAX Avanzado", "Power Query (M)", "Looker Studio", "Tableau", "Google Sheets"]
+            category: "Business Intelligence & Analytics",
+            items: ["DAX Avanzado", "Power Query (M)", "Dataflows", "Looker Studio", "Tableau", "Google Data Studio", "Row-Level Security (RLS)"]
         },
         {
-            category: "Ingeniería de Datos",
-            items: ["SQL Server", "Google BigQuery", "ETL Pipelines", "Data Modeling", "Star Schema", "Dataflows"]
+            category: "Bases de Datos & ETL",
+            items: ["SQL Server", "Google BigQuery", "ETL Pipelines", "Data Modeling", "Star Schema", "On-Premises Gateway", "Query Optimization"]
         },
         {
-            category: "Programación & Ciencia de Datos",
-            items: ["Pandas & NumPy", "Scikit-learn", "R Language", "VBA / Macros", "Google Apps Script"]
+            category: "Programación & Machine Learning",
+            items: ["Python (Pandas, NumPy, Scikit-learn)", "Random Forest", "Regresión Lineal/Logística", "R Language", "VBA Macros", "Google Apps Script", "Validación Cruzada"]
         },
         {
-            category: "Herramientas & Cloud",
-            items: ["Google Cloud Platform", "Azure", "Bitrix24 API", "Jira", "SharePoint"]
+            category: "Cloud & Automatización",
+            items: ["Google Cloud Platform", "Microsoft Azure", "Bitrix24 API", "REST APIs", "Webhooks", "Google Workspace", "SharePoint"]
         },
         {
-            category: "Metodologías",
-            items: ["Mejora Continua (Kaizen)", "Lean Six Sigma", "KPI Management", "Gestión de Proyectos", "Scrum"]
+            category: "Desarrollo de Apps",
+            items: ["AppSheet (Bots & Workflows)", "TypeForm", "No-Code Development", "Mobile Apps", "Barcode Scanning", "Geolocalización"]
+        },
+        {
+            category: "Gestión de Proyectos & Mejora Continua",
+            items: ["Kaizen", "5S", "Value Stream Mapping (VSM)", "KPI Management", "Lean Manufacturing", "Six Sigma", "Scrum", "GEMBA Walks"]
+        },
+        {
+            category: "ERP & Herramientas Empresariales",
+            items: ["SAP Business One", "Bitrix24 CRM", "Jira", "Microsoft Office Suite", "Google Workspace", "Power Platform"]
         }
     ];
 
