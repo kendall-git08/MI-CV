@@ -33,13 +33,14 @@
         const fragment = document.createDocumentFragment();
         const galleryModal = ensureGalleryModal();
 
-        (data?.areas || []).forEach(area => {
+        (data?.areas || []).forEach((area, index) => {
             const block = document.createElement('section');
             block.className = 'projects-block';
 
             const header = document.createElement('header');
             header.className = 'projects-block-header';
             header.style.borderLeft = `4px solid ${area.accent || 'var(--accent-primary)'}`;
+            header.style.cursor = 'pointer';
 
             const headerContent = document.createElement('div');
             headerContent.className = 'area-header-content';
@@ -60,10 +61,42 @@
             `;
             headerContent.appendChild(textGroup);
 
+            // Toggle icon
+            const toggleIcon = document.createElement('div');
+            toggleIcon.className = 'area-toggle-icon';
+            toggleIcon.innerHTML = `
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            `;
+            header.appendChild(toggleIcon);
+
             header.appendChild(headerContent);
+            header.appendChild(toggleIcon);
 
             const grid = document.createElement('div');
             grid.className = 'projects-block-grid';
+
+            // Default state: first area expanded, others collapsed
+            const isExpanded = index === 0;
+            if (!isExpanded) {
+                grid.style.display = 'none';
+                toggleIcon.style.transform = 'rotate(0deg)';
+            } else {
+                toggleIcon.style.transform = 'rotate(180deg)';
+            }
+
+            // Toggle logic
+            header.addEventListener('click', () => {
+                const isHidden = grid.style.display === 'none';
+                if (isHidden) {
+                    grid.style.display = 'grid';
+                    toggleIcon.style.transform = 'rotate(180deg)';
+                } else {
+                    grid.style.display = 'none';
+                    toggleIcon.style.transform = 'rotate(0deg)';
+                }
+            });
 
             (area.projects || []).forEach(project => {
                 const card = buildProjectCard(project, galleryModal);

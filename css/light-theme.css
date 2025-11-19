@@ -1642,3 +1642,15 @@ main.cv-main {
     color: var(--text-muted);
     font-weight: 400;
 }
+
+.area-toggle-icon {
+    color: var(--text-muted);
+    transition: transform var(--transition-base), color var(--transition-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.projects-block-header:hover .area-toggle-icon {
+    color: var(--accent-primary);
+}
