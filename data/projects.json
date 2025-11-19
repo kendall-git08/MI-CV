@@ -1,14 +1,15 @@
 {
-  "companies": [
+  "businessAreas": [
     {
-      "id": "coprodesa",
-      "name": "Coprodesa S.A.",
-      "period": "2024 - Actualidad",
-      "accent": "var(--accent-primary)",
+      "id": "finance",
+      "name": "Finanzas",
+      "icon": "assets/icons/areas/finance.svg",
+      "accent": "#2563eb",
       "projects": [
         {
-          "id": "cop-presupuestos",
+          "id": "fin-presupuestos",
           "title": "Seguimiento de Presupuestos",
+          "company": "Coprodesa S.A.",
           "role": "Dashboard financiero • Power BI",
           "summary": "Mantenimiento continuo del tablero maestro de presupuesto, con limpieza de datos, modelado semántico y despliegue en Power BI Service para la dirección financiera.",
           "stack": ["Power BI", "SQL", "Dataflows"],
@@ -44,8 +45,84 @@
           ]
         },
         {
-          "id": "cop-viaticos",
+          "id": "fin-costos-ahorro",
+          "title": "Seguimiento de Costos y Proyectos de Ahorro",
+          "company": "Eaton",
+          "role": "Análisis Financiero • Excel",
+          "summary": "Desarrollo de propuestas de ahorro en proyectos de planta. Análisis de costos operativos y seguimiento de iniciativas de optimización.",
+          "stack": ["Excel", "Power Query"],
+          "heroImage": "assets/images/MODELO DE DATOS.png",
+          "highlights": [
+            "Análisis de variaciones de costos de materiales y mano de obra.",
+            "Creación de plantillas para evaluación de viabilidad de proyectos de ahorro."
+          ],
+          "attachments": [],
+          "gallery": []
+        }
+      ]
+    },
+    {
+      "id": "commercial",
+      "name": "Comercial",
+      "icon": "assets/icons/areas/commercial.svg",
+      "accent": "#10b981",
+      "projects": [
+        {
+          "id": "com-comisiones",
+          "title": "Automatización de Pago de Comisiones",
+          "company": "Coprodesa S.A.",
+          "role": "SQL • Excel • Power BI",
+          "summary": "Desarrollo de un sistema automatizado para el cálculo y pago de comisiones al equipo de ventas, reduciendo errores y tiempos de procesamiento.",
+          "stack": ["SQL", "Excel", "Power BI"],
+          "heroImage": "assets/images/ADM FORECAST.png",
+          "highlights": [
+            "Reducción del 90% en el tiempo de procesamiento de comisiones.",
+            "Creación de un dashboard para que los vendedores consulten sus comisiones."
+          ],
+          "attachments": [],
+          "gallery": []
+        }
+      ]
+    },
+    {
+      "id": "logistics",
+      "name": "Logística",
+      "icon": "assets/icons/areas/logistics.svg",
+      "accent": "#f97316",
+      "projects": [
+        {
+          "id": "log-inventario",
+          "title": "App para Inventario Anual",
+          "company": "Coprodesa S.A.",
+          "role": "AppSheet • Liderazgo de proceso",
+          "summary": "Herramienta móvil para conteo físico anual con roles, validaciones y tablero de avance en tiempo real.",
+          "stack": ["AppSheet", "Power BI", "SharePoint"],
+          "heroImage": "assets/images/MODELO RELACIONAL INVENTARIO.png",
+          "highlights": [
+            "30+ operarios sincronizados en campo",
+            "Alertas automáticas por lotes con discrepancias",
+            "Capacitación y despliegue en menos de 2 semanas"
+          ],
+          "attachments": [],
+          "gallery": [
+            {
+              "image": "assets/images/MODELO RELACIONAL INVENTARIO.png",
+              "caption": "Mapa de entidades"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hr",
+      "name": "Recursos Humanos",
+      "icon": "assets/icons/areas/hr.svg",
+      "accent": "#8b5cf6",
+      "projects": [
+        {
+          "id": "hr-viaticos",
           "title": "Liquidación de Viáticos",
+          "company": "Coprodesa S.A.",
           "role": "App móvil • AppSheet",
           "summary": "Digitalización end-to-end del proceso de viáticos: captura móvil, validación automática, aprobaciones y panel de control diario.",
           "stack": ["AppSheet", "Apps Script", "Drive"],
@@ -69,39 +146,58 @@
               "caption": "Vista móvil del formulario"
             }
           ]
-        },
-        {
-          "id": "cop-inventario",
-          "title": "App para Inventario Anual",
-          "role": "AppSheet • Liderazgo de proceso",
-          "summary": "Herramienta móvil para conteo físico anual con roles, validaciones y tablero de avance en tiempo real.",
-          "stack": ["AppSheet", "Power BI", "SharePoint"],
-          "heroImage": "assets/images/MODELO RELACIONAL INVENTARIO.png",
-          "highlights": [
-            "30+ operarios sincronizados en campo",
-            "Alertas automáticas por lotes con discrepancias",
-            "Capacitación y despliegue en menos de 2 semanas"
-          ],
-          "attachments": [],
-          "gallery": [
-            {
-              "image": "assets/images/MODELO RELACIONAL INVENTARIO.png",
-              "caption": "Mapa de entidades" 
-            }
-          ]
         }
       ]
     },
     {
-      "id": "eaton",
-      "name": "Eaton",
-      "period": "2023 - 2024",
-      "accent": "var(--accent-mint)",
+      "id": "it",
+      "name": "TI",
+      "icon": "assets/icons/areas/it.svg",
+      "accent": "#3b82f6",
       "projects": [
         {
-          "id": "eaton-kpi",
+          "id": "it-pbi-admin",
+          "title": "Administración de Power BI Service",
+          "company": "Coprodesa S.A.",
+          "role": "Gestión de Workspaces y Pipelines",
+          "summary": "Creación de dataflows, mantenimiento de pipelines, distribución de informes y optimización de consultas en Power Query.",
+          "stack": ["Power BI Service", "Pipelines", "Dataflows"],
+          "heroImage": "assets/images/AZURE Y POWER BI.png",
+          "highlights": [
+            "Implementación de ambientes de desarrollo, pruebas y producción.",
+            "Monitoreo de rendimiento y seguridad de los workspaces."
+          ],
+          "attachments": [],
+          "gallery": []
+        },
+        {
+          "id": "it-sql-gateway",
+          "title": "Power Query + SQL On-Premise",
+          "company": "Coprodesa S.A.",
+          "role": "Integración de datos • SQL Gateway",
+          "summary": "Creación de consultas SQL directamente sobre bases de datos on-premise utilizando el gateway de Power BI.",
+          "stack": ["Power Query", "SQL Server", "Gateway"],
+          "heroImage": "assets/images/CONSULTAS SQL.png",
+          "highlights": [
+            "Conexión segura a bases de datos locales.",
+            "Optimización de consultas para reducir la carga en el servidor."
+          ],
+          "attachments": [],
+          "gallery": []
+        }
+      ]
+    },
+    {
+      "id": "continuous-improvement",
+      "name": "Mejora Continua",
+      "icon": "assets/icons/areas/improvement.svg",
+      "accent": "#14b8a6",
+      "projects": [
+        {
+          "id": "ci-kpi-analysis",
           "title": "Análisis de KPIs Operativos",
-          "role": "Mejora continua • Excel",
+          "company": "Eaton",
+          "role": "Mejora Continua • Excel",
           "summary": "Seguimiento de indicadores críticos de planta y generación de tableros diarios con metodología lean.",
           "stack": ["Excel", "Power Query", "VBA"],
           "heroImage": "assets/images/KPI.png",
@@ -126,6 +222,30 @@
           ]
         }
       ]
+    },
+    {
+      "id": "engineering",
+      "name": "Ingeniería",
+      "icon": "assets/icons/areas/engineering.svg",
+      "accent": "#64748b",
+      "projects": [
+        {
+          "id": "eng-medidores",
+          "title": "Activación de Medidores",
+          "company": "Coprodesa S.A.",
+          "role": "Proceso • AppSheet",
+          "summary": "Diseño y automatización del flujo para la activación de medidores, mejorando la eficiencia y el control del proceso.",
+          "stack": ["AppSheet", "Automatización"],
+          "heroImage": "assets/images/MEDIDORES.png",
+          "highlights": [
+            "Reducción del tiempo de activación en un 50%.",
+            "Creación de un portal para que los clientes sigan el estado de su solicitud."
+          ],
+          "attachments": [],
+          "gallery": []
+        }
+      ]
     }
   ]
 }
+

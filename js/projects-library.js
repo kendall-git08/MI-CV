@@ -33,31 +33,29 @@
         const fragment = document.createDocumentFragment();
         const galleryModal = ensureGalleryModal();
 
-        (data?.companies || []).forEach(company => {
+        (data?.businessAreas || []).forEach(area => {
             const block = document.createElement('section');
             block.className = 'projects-block';
 
             const header = document.createElement('header');
             header.className = 'projects-block-header';
-            header.style.borderLeft = `4px solid ${company.accent || 'var(--accent-primary)'}`;
+            header.style.borderLeft = `4px solid ${area.accent || 'var(--accent-primary)'}`;
 
             const heading = document.createElement('div');
             heading.innerHTML = `
-                <div class="projects-block-badge">Empresa</div>
-                <h3>${company.name || 'Proyecto'}</h3>
+                <div class="projects-block-badge" style="color: ${area.accent};">
+                    ${area.icon ? `<img src="${area.icon}" alt="" width="16" height="16">` : ''}
+                    <span>Área de Negocio</span>
+                </div>
+                <h3>${area.name || 'Proyectos'}</h3>
             `;
 
-            const period = document.createElement('span');
-            period.className = 'projects-block-period';
-            period.textContent = company.period || '';
-
             header.appendChild(heading);
-            header.appendChild(period);
 
             const grid = document.createElement('div');
             grid.className = 'projects-block-grid';
 
-            (company.projects || []).forEach(project => {
+            (area.projects || []).forEach(project => {
                 const card = buildProjectCard(project, galleryModal);
                 grid.appendChild(card);
             });
@@ -97,7 +95,7 @@
         const body = document.createElement('div');
         body.className = 'project-card-body';
         body.innerHTML = `
-            <p class="project-card-meta">${project.role || ''}</p>
+            <p class="project-card-meta">${project.company || ''} • ${project.role || ''}</p>
             <h4>${project.title || ''}</h4>
             <p class="project-card-summary">${project.summary || ''}</p>
         `;
