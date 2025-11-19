@@ -109,21 +109,6 @@
           ],
           "attachments": [],
           "gallery": []
-        },
-        {
-          "id": "cop-medidores",
-          "title": "Activación de Medidores",
-          "role": "Proceso • AppSheet",
-          "summary": "Diseño y automatización del flujo para la activación de medidores, mejorando la eficiencia y el control del proceso de servicio al cliente.",
-          "stack": ["AppSheet", "Google Sheets"],
-          "heroImage": "assets/images/MEDIDORES.png",
-          "highlights": [
-            "Trazabilidad completa de la solicitud",
-            "Reducción de tiempos de espera del cliente",
-            "Integración con equipo de campo"
-          ],
-          "attachments": [],
-          "gallery": []
         }
       ]
     },
@@ -282,7 +267,92 @@
       "tagline": "Diseño, Operaciones y Técnica",
       "accent": "#6366f1",
       "icon": "assets/icons/areas/engineering.svg",
-      "projects": []
+      "projects": [
+        {
+          "id": "eng-costos-proyecto",
+          "title": "Seguimiento de Costos por Proyecto",
+          "role": "Control de Proyectos • Excel",
+          "summary": "Modelo de datos en Excel unificado con tablas de SAP B1 para el seguimiento detallado de margen, costos y cuentas contables por proyecto.",
+          "stack": ["Excel", "SAP B1", "Power Query"],
+          "heroImage": "assets/images/MODELO DE DATOS.png",
+          "highlights": [
+            "Unificación de datos financieros y operativos",
+            "Control de margen en tiempo real",
+            "Trazabilidad de cuentas contables"
+          ],
+          "attachments": [],
+          "gallery": []
+        },
+        {
+          "id": "eng-kilometraje",
+          "title": "Control de Kilometraje",
+          "role": "AppSheet • Gestión de Flota",
+          "summary": "App para ingenieros residentes que registra kilometraje, montos y fechas. Genera reportes PDF y se integra con finanzas para actualización de costos.",
+          "stack": ["AppSheet", "Excel", "PDF Automation"],
+          "heroImage": "assets/images/APPS EXTERNAS.png",
+          "highlights": [
+            "Registro móvil geolocalizado",
+            "Generación automática de reportes PDF",
+            "Integración con tarifas del departamento financiero"
+          ],
+          "attachments": [],
+          "gallery": []
+        }
+      ]
+    },
+    {
+      "id": "telemetry",
+      "name": "Telemetría",
+      "tagline": "Monitoreo, IoT y Gestión Remota",
+      "accent": "#8b5cf6",
+      "icon": "assets/icons/areas/telemetry.svg",
+      "projects": [
+        {
+          "id": "tel-vip-apps",
+          "title": "Apps para Clientes VIP",
+          "role": "Desarrollo AppSheet • IoT",
+          "summary": "Suite de aplicaciones personalizadas por cliente para mapeo de medidores, registro de ubicación, estado y gestión de recambios.",
+          "stack": ["AppSheet", "Google Maps", "IoT"],
+          "heroImage": "assets/images/MIS APPS.png",
+          "highlights": [
+            "Mapeo geoespacial de todos los medidores",
+            "Historial de cambios y responsables",
+            "Personalización total por cliente VIP"
+          ],
+          "attachments": [],
+          "gallery": []
+        },
+        {
+          "id": "tel-work-orders",
+          "title": "Control de Órdenes de Trabajo",
+          "role": "Gestión Operativa • KPIs",
+          "summary": "Sistema de gestión de órdenes de trabajo para control de personal, tiempos de ejecución y vinculación directa con KPIs de rendimiento.",
+          "stack": ["AppSheet", "Power BI"],
+          "heroImage": "assets/images/KPI ESTRATEGICO.png",
+          "highlights": [
+            "Asignación y seguimiento de responsables",
+            "Medición de tiempos de respuesta",
+            "Impacto directo en KPIs operativos"
+          ],
+          "attachments": [],
+          "gallery": []
+        },
+        {
+          "id": "cop-medidores",
+          "title": "Activación de Medidores",
+          "role": "Proceso • AppSheet",
+          "summary": "Diseño y automatización del flujo para la activación de medidores, con verificación de códigos de barra y agrupación por cajas/clientes.",
+          "stack": ["AppSheet", "Barcode Scanning"],
+          "heroImage": "assets/images/MEDIDORES.png",
+          "highlights": [
+            "Escaneo y validación de códigos de barra",
+            "Agrupación lógica por caja y cliente",
+            "Reducción de errores en despacho"
+          ],
+          "attachments": [],
+          "gallery": []
+        }
+      ]
     },
     {
       "id": "hr",
@@ -290,7 +360,38 @@
       "tagline": "Talento, Cultura y Gestión",
       "accent": "#ec4899",
       "icon": "assets/icons/areas/hr.svg",
-      "projects": []
+      "projects": [
+        {
+          "id": "hr-bitrix-api",
+          "title": "Integración API Bitrix24",
+          "role": "Automatización • Webhooks",
+          "summary": "Extracción automática de información de tareas mediante API y webhooks para analizar el rendimiento y cumplimiento de objetivos del personal.",
+          "stack": ["API REST", "Webhooks", "JSON"],
+          "heroImage": "assets/images/DATAFLOWS.png",
+          "highlights": [
+            "Conexión en tiempo real con CRM",
+            "Análisis de productividad por empleado",
+            "Dashboards de cumplimiento de tareas"
+          ],
+          "attachments": [],
+          "gallery": []
+        },
+        {
+          "id": "hr-performance",
+          "title": "Evaluación del Desempeño",
+          "role": "Análisis de Datos • TypeForm",
+          "summary": "Sistema de evaluación 360° (jefatura, empleado) normalizado por categorías, con recolección vía TypeForm y análisis consolidado en Excel.",
+          "stack": ["TypeForm", "Excel", "Power Query"],
+          "heroImage": "assets/images/KPI.png",
+          "highlights": [
+            "Relación jerárquica jefatura-empleado",
+            "Normalización de puntajes por categoría",
+            "Reportes automáticos de feedback"
+          ],
+          "attachments": [],
+          "gallery": []
+        }
+      ]
     }
   ]
 }
