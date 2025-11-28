@@ -1,0 +1,45 @@
+{
+    "metadata": {
+        "last_updated": "2025-11-27",
+        "author": "Kendall Jiménez"
+    },
+    "areas": [
+        {
+            "id": "bi_finanzas",
+            "title": "Business Intelligence & Finanzas",
+            "description": "Transformación de datos financieros y comerciales en decisiones estratégicas.",
+            "roles": [
+                {
+                    "title": "Business Intelligence Specialist",
+                    "company": "Coprodesa S.A.",
+                    "period": "SEP 2024 – Actualidad",
+                    "achievements": [
+                        "Diseño y mantenimiento de modelos de datos (SAP Business One, SQL Server) e integración con CRM (Bitrix24).",
+                        "Construcción y gobernanza de dashboards en Power BI (DAX, Dataflows) para seguimiento de presupuestos, costos y gastos.",
+                        "Cálculo y automatización del pago de comisiones para el equipo de ventas.",
+                        "Automatización de flujos de trabajo (AppSheet) para aprobación de gastos y generación de reportes.",
+                        "Desarrollo y mantenimiento de pipelines ETL para KPIs críticos de negocio.",
+                        "Prototipado rápido con IA y micro-aplicaciones para validar soluciones internas."
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "mejora_continua",
+            "title": "Mejora Continua & Operaciones",
+            "description": "Optimización de procesos operativos y reducción de desperdicios.",
+            "roles": [
+                {
+                    "title": "Pasante / Técnico de Mejora Continua",
+                    "company": "Eaton",
+                    "period": "AGO 2023 – SEP 2024",
+                    "achievements": [
+                        "Análisis de KPIs operativos y ejecución de proyectos de mejora continua (5S, VSM, Kaizen).",
+                        "Seguimiento de costos y desarrollo de propuestas de ahorro en proyectos de planta.",
+                        "Soporte en la actualización de procedimientos operativos (OSP) y colaboración en equipos multidisciplinarios."
+                    ]
+                }
+            ]
+        }
+    ]
+}

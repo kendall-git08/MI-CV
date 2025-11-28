@@ -75,45 +75,14 @@
     </div>
 
         <main class="cv-main">
-            <!-- Experience Section -->
-            <section class="experience-card card">
+            <!-- Experience Section (Loaded Dynamically from JSON) -->
+            <section id="experience-container" class="experience-card card">
+                <!-- Skeleton Loading State -->
                 <div class="experience-header">
-                    <div class="experience-photo-wrapper">
-                        <img class="profile-img" src="assets/images/Kendall.jpeg" alt="Foto de perfil de Kendall Jiménez">
-                    </div>
+                    <div class="experience-photo-wrapper" style="background: #eee;"></div>
                     <div class="experience-intro">
-                        <h2 class="section-title">EXPERIENCIA PROFESIONAL</h2>
-                        <p class="experience-tagline">Analista de datos para tranformar procesos y tomar decisiones</p>
+                        <h2 class="section-title">Cargando experiencia...</h2>
                     </div>
-                </div>
-                <div class="experience-timeline">
-                    <article class="job-entry">
-                        <div class="job-header">
-                            <h3 class="job-title">Business Intelligence Specialist</h3>
-                            <p class="job-company">Coprodesa S.A.</p>
-                            <p class="job-duration">SEP 2024 – Actualidad</p>
-                        </div>
-                        <ul class="job-duties">
-                            <li>Diseño y mantenimiento de modelos de datos (SAP Business One, SQL Server) e integración con CRM (Bitrix24).</li>
-                            <li>Construcción y gobernanza de dashboards en Power BI (DAX, Dataflows) para seguimiento de presupuestos, costos y gastos.</li>
-                            <li>Cálculo y automatización del pago de comisiones para el equipo de ventas.</li>
-                            <li>Automatización de flujos de trabajo (AppSheet) para aprobación de gastos y generación de reportes.</li>
-                            <li>Desarrollo y mantenimiento de pipelines ETL para KPIs críticos de negocio.</li>
-                            <li>Prototipado rápido con IA y micro-aplicaciones para validar soluciones internas.</li>
-                        </ul>
-                    </article>
-                    <article class="job-entry">
-                        <div class="job-header">
-                            <h3 class="job-title">Pasante / Técnico de Mejora Continua</h3>
-                            <p class="job-company">Eaton</p>
-                            <p class="job-duration">AGO 2023 – SEP 2024</p>
-                        </div>
-                        <ul class="job-duties">
-                            <li>Análisis de KPIs operativos y ejecución de proyectos de mejora continua (5S, VSM, Kaizen).</li>
-                            <li>Seguimiento de costos y desarrollo de propuestas de ahorro en proyectos de planta.</li>
-                            <li>Soporte en la actualización de procedimientos operativos (OSP) y colaboración en equipos multidisciplinarios.</li>
-                        </ul>
-                    </article>
                 </div>
             </section>
 
@@ -455,6 +424,7 @@
     <script src="js/projects-library.js"></script>
     <script src="js/slidepanel.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/experience-loader.js"></script>
     
     <!-- Skills Grid (refactored, no popups) -->
     <script src="js/skills-grid.js"></script>

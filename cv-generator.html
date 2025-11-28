@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de CV con IA</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            background: var(--bg-body);
+            color: var(--text-body);
+            font-family: var(--font-body);
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .generator-card {
+            background: var(--bg-card);
+            padding: 32px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-subtle);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-strong);
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            background: var(--bg-soft-alt);
+        }
+        button {
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: opacity 0.2s;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        button:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+        }
+        #resultArea {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8fafc;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            white-space: pre-wrap;
+            display: none;
+        }
+        .status {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .success { color: var(--accent-mint); }
+        .error { color: #ef4444; }
+    </style>
+</head>
+<body>
+    <div class="generator-card">
+        <h1 style="margin-top:0; color:var(--text-strong);">Generador de Perfil IA</h1>
+        <p>Conecta con tu backend local para generar un resumen profesional basado en <code>data/experience.json</code>.</p>
+        
+        <div class="form-group">
+            <label for="targetRole">Rol Objetivo</label>
+            <input type="text" id="targetRole" value="Senior Data Analyst" placeholder="Ej: Data Scientist, BI Manager...">
+        </div>
+
+        <div class="form-group">
+            <label for="accessToken">Access Token (Contraseña)</label>
+            <input type="password" id="accessToken" placeholder="Tu contraseña del .env">
+        </div>
+
+        <button id="generateBtn" onclick="generateProfile()">Generar Perfil con Gemini</button>
+        <div id="statusMsg" class="status"></div>
+
+        <div id="resultArea">
+            <h3 style="margin-top:0;">Resultado Generado:</h3>
+            <div id="aiOutput"></div>
+            <button onclick="copyToClipboard()" style="margin-top:15px; background:var(--bg-card); color:var(--accent-primary); border:1px solid var(--border-subtle);">Copiar Texto</button>
+        </div>
+    </div>
+
+    <script>
+        async function generateProfile() {
+            const btn = document.getElementById('generateBtn');
+            const status = document.getElementById('statusMsg');
+            const resultArea = document.getElementById('resultArea');
+            const output = document.getElementById('aiOutput');
+            
+            const role = document.getElementById('targetRole').value;
+            const token = document.getElementById('accessToken').value;
+
+            if(!token) {
+                status.textContent = "Por favor ingresa tu Access Token";
+                status.className = "status error";
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = "Generando con IA...";
+            status.textContent = "";
+            resultArea.style.display = 'none';
+
+            try {
+                // 1. Cargar datos actuales
+                const expResponse = await fetch('data/experience.json');
+                const experienceData = await expResponse.json();
+
+                // 2. Llamar al Backend
+                const response = await fetch('http://127.0.0.1:8000/generate-cv-summary', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-access-token': token
+                    },
+                    body: JSON.stringify({
+                        experience: experienceData,
+                        target_role: role
+                    })
+                });
+
+                if (!response.ok) {
+                    const err = await response.json();
+                    throw new Error(err.detail || 'Error en el servidor');
+                }
+
+                const data = await response.json();
+                
+                // 3. Mostrar resultado
+                output.textContent = data.generated_profile;
+                resultArea.style.display = 'block';
+                status.textContent = "¡Perfil generado exitosamente!";
+                status.className = "status success";
+
+            } catch (error) {
+                console.error(error);
+                status.textContent = "Error: " + error.message;
+                status.className = "status error";
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "Generar Perfil con Gemini";
+            }
+        }
+
+        function copyToClipboard() {
+            const text = document.getElementById('aiOutput').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Texto copiado al portapapeles');
+            });
+        }
+    </script>
+</body>
+</html>
